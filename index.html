@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portafolio Digital | Marcelo Garcia Soto</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* --- VARIABLES & RESET --- */
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: #151b2b;
+            --text-primary: #f9fafb;
+            --text-secondary: #9ca3af;
+            --accent-blue: #3b82f6;
+            --accent-glow: rgba(59, 130, 246, 0.5);
+            --accent-gradient: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            --success: #10b981;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            font-weight: 300;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: white;
+            letter-spacing: -0.5px;
+        }
+
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        ul { list-style: none; }
+
+        /* --- LAYOUT UTILITIES --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-padding { padding: 80px 0; }
+        
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: radial-gradient(circle at 70% 30%, rgba(59, 130, 246, 0.08) 0%, transparent 60%);
+            padding-top: 40px;
+        }
+
+        .hero-container {
+            display: flex;
+            flex-direction: column-reverse;
+            align-items: center;
+            gap: 40px;
+            max-width: 1000px;
+            width: 100%;
+        }
+
+        .hero-content { 
+            text-align: center; 
+            z-index: 2; 
+            flex: 1;
+        }
+
+        /* Estilos de la Foto */
+        .hero-image-box {
+            position: relative;
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            border: 4px solid var(--accent-blue);
+            overflow: hidden;
+            box-shadow: 0 0 40px rgba(59, 130, 246, 0.2);
+            background-color: white;
+            flex-shrink: 0;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .hero-image-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top; 
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .hero h1 {
+            font-size: clamp(36px, 5vw, 64px);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            background: linear-gradient(to bottom, #ffffff, #e5e7eb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: clamp(16px, 2vw, 20px);
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+            font-weight: 400;
+        }
+
+        .contact-bar {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 30px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #d1d5db;
+        }
+
+        .contact-item:hover {
+            border-color: var(--accent-blue);
+            background: rgba(59, 130, 246, 0.1);
+            color: white;
+        }
+
+        .btn-cta {
+            display: inline-block;
+            margin-top: 35px;
+            padding: 16px 45px;
+            background: var(--accent-gradient);
+            border-radius: 8px;
+            font-weight: 600;
+            box-shadow: 0 10px 25px -10px var(--accent-glow);
+            letter-spacing: 0.5px;
+        }
+        .btn-cta:hover { transform: translateY(-3px); box-shadow: 0 20px 35px -10px var(--accent-glow); }
+
+        /* --- PROJECTS SECTION --- */
+        .project-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            margin-bottom: 60px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .project-header {
+            padding: 35px 40px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            background: rgba(255, 255, 255, 0.01);
+        }
+
+        .project-title h3 { font-size: 28px; margin-bottom: 5px; font-weight: 600; }
+        .project-title span { color: var(--accent-blue); font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 600; }
+
+        .project-body { padding: 40px; }
+
+        /* Metrics Grid */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 15px;
+            margin-bottom: 35px;
+        }
+
+        .metric-box {
+            background: rgba(255, 255, 255, 0.02);
+            padding: 20px 15px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            transition: 0.3s;
+        }
+        
+        .metric-box:hover { border-color: rgba(255, 255, 255, 0.1); background: rgba(255, 255, 255, 0.04); }
+
+        .metric-number {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--success);
+            display: block;
+            margin-bottom: 5px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .metric-label { font-size: 13px; color: var(--text-secondary); font-weight: 500; }
+
+        /* --- BEFORE/AFTER SLIDER (INTERACTIVO) --- */
+        .ba-slider {
+            position: relative;
+            width: 100%;
+            height: 480px;
+            background: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Estilo general de las imágenes */
+        .ba-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 30px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            user-select: none;
+        }
+
+        /* Capa inferior: Identidad Anterior */
+        .ba-layer-before {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: white;
+        }
+
+        /* Capa superior: Identidad Renovada (Se recorta) */
+        .ba-layer-after {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: white;
+            clip-path: inset(0 50% 0 0); 
+        }
+
+        /* Etiquetas */
+        .ba-label {
+            position: absolute;
+            top: 20px;
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: white;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .ba-label-before {
+            right: 20px;
+            background: rgba(0,0,0,0.7);
+        }
+
+        .ba-label-after {
+            left: 20px;
+            background: var(--accent-blue);
+        }
+
+        /* Línea divisoria y manija */
+        .ba-handle {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 4px;
+            background: var(--accent-blue);
+            cursor: ew-resize;
+            z-index: 20;
+            pointer-events: none;
+        }
+
+        .ba-circle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            background: var(--accent-blue);
+            border: 4px solid white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .ba-range-input {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: ew-resize;
+            z-index: 30;
+            margin: 0;
+        }
+
+        /* Video Container Styles */
+        .video-box {
+            background: #000;
+            border-radius: 12px;
+            aspect-ratio: 9 / 16;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            position: relative;
+            width: 100%;
+        }
+        
+        .video-box video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+        }
+
+        /* --- COLLAGE DE GUIONES (INTERACTIVO) --- */
+        .script-collage {
+            position: relative;
+            height: 280px;
+            width: 100%;
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1000px; /* Da profundidad 3D */
+        }
+
+        .script-card {
+            position: absolute;
+            width: 160px; 
+            height: 220px;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1); /* Movimiento suave */
+            cursor: pointer;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.2);
+            transform-origin: bottom center;
+        }
+
+        .script-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top;
+            transition: 0.5s;
+        }
+
+        /* Estado Inicial: Apilados con rotación sutil */
+        .script-card:nth-child(1) { transform: rotate(-6deg) translateX(-15px) scale(0.95); z-index: 1; opacity: 0.8; }
+        .script-card:nth-child(2) { transform: rotate(0deg) translateY(0px) scale(1); z-index: 2; }
+        .script-card:nth-child(3) { transform: rotate(6deg) translateX(15px) scale(0.95); z-index: 1; opacity: 0.8; }
+
+        /* Estado Hover del Contenedor: Se abren en abanico */
+        .script-collage:hover .script-card:nth-child(1) { 
+            transform: rotate(-15deg) translateX(-100px) translateY(-10px) scale(1); 
+            z-index: 2; 
+            opacity: 1; 
+        }
+        .script-collage:hover .script-card:nth-child(2) { 
+            transform: rotate(0deg) translateY(-20px) scale(1); 
+            z-index: 3; 
+        }
+        .script-collage:hover .script-card:nth-child(3) { 
+            transform: rotate(15deg) translateX(100px) translateY(-10px) scale(1); 
+            z-index: 2; 
+            opacity: 1; 
+        }
+
+        /* Estado Hover de Carta Individual: Zoom y primer plano */
+        .script-card:hover {
+            z-index: 10 !important;
+            transform: scale(1.3) translateY(-10px) rotate(0deg) !important;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.6);
+            border-color: var(--accent-blue);
+        }
+
+        /* --- UNIVERSITY GRID --- */
+        .uni-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 25px;
+        }
+        
+        .uni-card {
+            background: rgba(255,255,255,0.02);
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .uni-card:hover { 
+            background: rgba(255,255,255,0.04); 
+            transform: translateY(-5px); 
+            border-color: var(--accent-blue);
+        }
+        .uni-card i { font-size: 28px; color: var(--accent-blue); margin-bottom: 20px; }
+        .uni-card h4 { font-size: 18px; margin-bottom: 8px; }
+
+        /* Social Icon Button Style */
+        .social-icon-btn {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #d1d5db;
+            transition: 0.3s;
+        }
+        .social-icon-btn:hover {
+            background: var(--accent-blue);
+            color: white;
+            border-color: var(--accent-blue);
+            transform: translateY(-2px);
+        }
+
+        /* --- ANIMACIÓN LOGO CAD (Crossfade de Imágenes) --- */
+        @keyframes fadeSwitch {
+            0%, 45% { opacity: 0; }
+            50%, 95% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        /* Animación para el color del borde */
+        @keyframes borderSwitch {
+            0%, 45% { border-color: #000; } /* Borde negro para fondo blanco */
+            50%, 95% { border-color: #fff; } /* Borde blanco para fondo negro */
+            100% { border-color: #000; }
+        }
+
+        .cad-logo-circle {
+            width: 180px; /* Aumentado de 140px a 180px */
+            height: 180px;
+            border-radius: 50%;
+            position: relative;
+            margin: 30px auto 0;
+            border: 2px solid white; /* Grosor reducido a 2px */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            overflow: hidden;
+            background: white; 
+            animation: borderSwitch 6s infinite ease-in-out; /* Animación de borde sincronizada */
+        }
+
+        /* Estilos comunes para ambas imágenes del logo */
+        .cad-logo-circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        /* Imagen Positiva (Base) */
+        .logo-pos {
+            z-index: 1;
+        }
+
+        /* Imagen Negativa (Animada) */
+        .logo-neg {
+            z-index: 2;
+            animation: fadeSwitch 6s infinite ease-in-out;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            padding: 60px 0;
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            color: var(--text-secondary);
+            font-size: 14px;
+            background: #080c14;
+        }
+
+        /* Responsive Adjustments */
+        @media (min-width: 768px) {
+            .hero-container {
+                flex-direction: row;
+                text-align: left;
+                justify-content: space-between;
+            }
+            .hero-content {
+                text-align: left;
+            }
+            .contact-bar {
+                justify-content: flex-start;
+            }
+            .hero-image-box {
+                width: 320px;
+                height: 320px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .grid-2 { grid-template-columns: 1fr; }
+            .project-header { flex-direction: column; align-items: flex-start; }
+            .hero-content { padding: 0 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="container hero-container">
+            
+            <!-- Contenido de Texto -->
+            <div class="hero-content">
+                <p style="color: var(--accent-blue); font-weight: 600; letter-spacing: 3px; margin-bottom: 15px; font-size: 14px; text-transform: uppercase;">Portafolio Profesional</p>
+                <h1>MARCELO IVAN GARCIA SOTO</h1>
+                <p style="max-width: 600px; margin: 0 auto 35px 0;">Egresado de Ciencias de la Comunicación | Estudiante de Business and Management (BSc)</p>
+                
+                <div class="contact-bar">
+                    <div class="contact-item"><i class="fa-solid fa-location-dot"></i> San Isidro, Lima</div>
+                    <!-- Enlace a WhatsApp (se mantiene clickeable) -->
+                    <a href="https://wa.me/+51974660915" target="_blank" class="contact-item"><i class="fa-brands fa-whatsapp"></i> 974 660 915</a>
+                    <!-- Email actualizado: Ahora es un div estático, no un enlace -->
+                    <div class="contact-item"><i class="fa-solid fa-envelope"></i> marcelogarciasoto@gmail.com</div>
+                    <a href="https://www.linkedin.com/in/marcelo-garcia-soto-377959175/" target="_blank" class="contact-item" style="background: #0077b5; border-color: #0077b5; color: white;"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
+                </div>
+
+                <a href="#proyectos" class="btn-cta">Ver Resultados <i class="fa-solid fa-arrow-down" style="margin-left: 10px;"></i></a>
+            </div>
+
+            <!-- Foto de Perfil -->
+            <div class="hero-image-box">
+                <img src="perfil.jfif" alt="Marcelo Garcia Soto" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=Marcelo+Garcia&background=0D8ABC&color=fff&size=400';">
+            </div>
+
+        </div>
+    </section>
+
+    <div class="container section-padding" id="proyectos">
+        <h2 style="margin-bottom: 50px; font-size: 32px; border-left: 4px solid var(--accent-blue); padding-left: 20px;">Proyectos Destacados</h2>
+
+        <!-- PROYECTO 1: DISEÑANDO DETALLES -->
+        <article class="project-card">
+            <div class="project-header">
+                <div class="project-title">
+                    <span>Estrategia Digital Integral</span>
+                    <h3>Diseñando Detalles</h3>
+                </div>
+                
+                <div style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
+                    <!-- Etiquetas -->
+                    <div style="display: flex; gap: 10px;">
+                        <span class="contact-item" style="font-size: 12px; padding: 6px 12px;"><i class="fa-brands fa-meta"></i> Meta Ads</span>
+                        <span class="contact-item" style="font-size: 12px; padding: 6px 12px;"><i class="fa-solid fa-palette"></i> Rebranding</span>
+                        <span class="contact-item" style="font-size: 12px; padding: 6px 12px;"><i class="fa-solid fa-arrow-trend-up"></i> Organic Growth</span>
+                    </div>
+                    
+                    <!-- Enlaces Redes Sociales -->
+                    <div style="display: flex; gap: 10px; border-left: 1px solid rgba(255,255,255,0.1); padding-left: 15px;">
+                        <a href="https://www.instagram.com/disenando_detalles/" target="_blank" class="social-icon-btn" title="Instagram">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="https://www.tiktok.com/@disenando_detalles" target="_blank" class="social-icon-btn" title="TikTok">
+                            <i class="fa-brands fa-tiktok"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-body">
+                <div class="grid-2">
+                    <div>
+                        <h4 style="margin-bottom: 25px; color: white; font-size: 18px;">Resultados de Contenido Orgánico</h4>
+                        <div class="metrics-grid">
+                            <div class="metric-box">
+                                <span class="metric-number">+20%</span>
+                                <span class="metric-label">Seguidores</span>
+                            </div>
+                            <div class="metric-box">
+                                <span class="metric-number">+2%</span>
+                                <span class="metric-label">Engagement</span>
+                            </div>
+                        </div>
+
+                        <h4 style="margin-bottom: 25px; margin-top: 30px; color: white; font-size: 18px;">Performance Pauta Digital</h4>
+                        <div class="metrics-grid">
+                            <div class="metric-box">
+                                <span class="metric-number">+46k</span>
+                                <span class="metric-label">Visualizaciones</span>
+                            </div>
+                            <div class="metric-box">
+                                <span class="metric-number">S/ 0.52</span>
+                                <span class="metric-label">Costo por Msj</span>
+                            </div>
+                            <div class="metric-box">
+                                <span class="metric-number">453</span>
+                                <span class="metric-label">Msj Iniciados</span>
+                            </div>
+                            <!-- Eliminado: Tasa Conversión -->
+                        </div>
+                    </div>
+                    <div>
+                        <!-- Título actualizado -->
+                        <h4 style="margin-bottom: 25px; color: white; font-size: 18px;">Restyling de Identidad Corporativa</h4>
+                        
+                        <!-- COMPARACIÓN INTERACTIVA (SLIDER) -->
+                        <div class="ba-slider" id="ba-slider">
+                            
+                            <!-- Capa Inferior: Identidad Anterior (Fondo) -->
+                            <div class="ba-layer-before">
+                                <span class="ba-label ba-label-before">Identidad Anterior</span>
+                                <img src="logo-anterior.jpg" class="ba-image" alt="Logo Anterior" onerror="this.src='https://via.placeholder.com/200x200?text=Logo+Anterior'">
+                            </div>
+
+                            <!-- Capa Superior: Identidad Renovada (Se recorta) -->
+                            <div class="ba-layer-after" id="ba-layer-after">
+                                <span class="ba-label ba-label-after">Identidad Renovada</span>
+                                <img src="logo-nuevo.jpg" class="ba-image" alt="Logo Renovado" onerror="this.src='https://via.placeholder.com/200x200?text=Logo+Nuevo'">
+                            </div>
+
+                            <!-- Manija Deslizante -->
+                            <div class="ba-handle" id="ba-handle">
+                                <div class="ba-circle"><i class="fa-solid fa-arrows-left-right"></i></div>
+                            </div>
+
+                            <!-- Input Range Invisible para controlar el movimiento -->
+                            <input type="range" min="0" max="100" value="50" class="ba-range-input" oninput="moveSlider(this.value)">
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <p style="margin-top: 30px; color: #10b981; font-weight: 500; font-size: 18px; background: rgba(16, 185, 129, 0.1); padding: 20px; border-radius: 12px; border: 1px solid rgba(16, 185, 129, 0.2); text-align: center; width: 100%;">
+                    <i class="fa-solid fa-arrow-trend-up" style="margin-right: 10px;"></i>
+                    Impacto total: Generación de un incremento del 30% en ventas globales.
+                </p>
+
+                <!-- NUEVA SECCIÓN: Videos con mayor alcance (VERSIÓN ARCHIVO LOCAL) -->
+                <div style="margin-top: 50px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 30px;">
+                    <h4 style="margin-bottom: 30px; color: white; font-size: 20px; text-align: center;">Contenido para las 3 etapas del funnel</h4>
+                    <div class="grid-3">
+                        <!-- Video 1 -->
+                        <div>
+                            <div class="video-box">
+                                <video controls muted>
+                                    <source src="video1.mp4" type="video/mp4">
+                                    Tu navegador no soporta videos.
+                                </video>
+                            </div>
+                            <div style="margin-top: 15px; text-align: center;">
+                                <h5 style="color: var(--accent-blue); margin-bottom: 5px;">Awareness</h5>
+                                <p style="color: white; font-size: 14px; margin-bottom: 2px;">Contenido viral</p>
+                                <p style="color: var(--text-secondary); font-size: 13px;">Visualizaciones: <span style="color: var(--success);">29.5K</span></p>
+                            </div>
+                        </div>
+                        <!-- Video 2 -->
+                        <div>
+                            <div class="video-box">
+                                <video controls muted>
+                                    <source src="video2.mp4" type="video/mp4">
+                                    Tu navegador no soporta videos.
+                                </video>
+                            </div>
+                            <div style="margin-top: 15px; text-align: center;">
+                                <h5 style="color: var(--accent-blue); margin-bottom: 5px;">Consideración</h5>
+                                <p style="color: white; font-size: 14px; margin-bottom: 2px;">Contenido de nicho</p>
+                                <p style="color: var(--text-secondary); font-size: 13px;">Engagement: <span style="color: var(--success);">4.6%</span></p>
+                            </div>
+                        </div>
+                        <!-- Video 3 -->
+                        <div>
+                            <div class="video-box">
+                                <video controls muted>
+                                    <source src="video3.mp4" type="video/mp4">
+                                    Tu navegador no soporta videos.
+                                </video>
+                            </div>
+                            <div style="margin-top: 15px; text-align: center;">
+                                <h5 style="color: var(--accent-blue); margin-bottom: 5px;">Conversión</h5>
+                                <p style="color: white; font-size: 14px; margin-bottom: 2px;">Contenido de venta</p>
+                                <p style="color: var(--text-secondary); font-size: 13px;">Tasa de conversión: <span style="color: var(--success);">7%</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </article>
+
+        <!-- PROYECTO 2: CAD -->
+        <article class="project-card">
+            <div class="project-header">
+                <div class="project-title">
+                    <span>Consultoría y Growth Freelance</span>
+                    <h3>CAD Consultorios</h3>
+                </div>
+                
+                <div style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
+                    <!-- Etiquetas -->
+                    <div style="display: flex; gap: 10px;">
+                        <span class="contact-item" style="font-size: 12px; padding: 6px 12px;"><i class="fa-brands fa-tiktok"></i> TikTok Growth</span>
+                        <span class="contact-item" style="font-size: 12px; padding: 6px 12px;"><i class="fa-solid fa-pen-nib"></i> Identidad Visual</span>
+                    </div>
+
+                    <!-- Enlaces Redes Sociales (CAD) -->
+                    <div style="display: flex; gap: 10px; border-left: 1px solid rgba(255,255,255,0.1); padding-left: 15px;">
+                        <a href="https://www.facebook.com/profile.php?id=100057145284236" target="_blank" class="social-icon-btn" title="Facebook">
+                            <i class="fa-brands fa-facebook"></i>
+                        </a>
+                        <a href="https://www.tiktok.com/@cadconsultorios" target="_blank" class="social-icon-btn" title="TikTok">
+                            <i class="fa-brands fa-tiktok"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="project-body">
+                <div class="grid-2">
+                    <div>
+                        <h4 style="margin-bottom: 25px; color: white; font-size: 18px;">Resultados en 2 Meses</h4>
+                        <div class="metrics-grid">
+                            <div class="metric-box">
+                                <span class="metric-number">+11.5K</span>
+                                <span class="metric-label">Seguidores TikTok</span>
+                            </div>
+                            <div class="metric-box">
+                                <span class="metric-number">+600</span>
+                                <span class="metric-label">Seguidores FB</span>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 35px;">
+                            <h5 style="color: var(--accent-blue); margin-bottom: 20px; font-size: 16px;">Estrategia Implementada</h5>
+                            <ul style="color: #d1d5db; font-size: 15px; list-style: none; padding: 0;">
+                                <li style="margin-bottom: 15px; display: flex; align-items: start;">
+                                    <div style="min-width: 30px;"><i class="fa-solid fa-palette" style="color: var(--success);"></i></div>
+                                    <span><strong>Identidad Visual:</strong> Creación integral de logo y paleta de colores corporativos.</span>
+                                </li>
+                                <li style="margin-bottom: 15px; display: flex; align-items: start;">
+                                    <div style="min-width: 30px;"><i class="fa-solid fa-rocket" style="color: var(--success);"></i></div>
+                                    <span><strong>Growth Orgánico:</strong> Diseño, implementación y medición de estrategia de crecimiento.</span>
+                                </li>
+                                <li style="margin-bottom: 15px; display: flex; align-items: start;">
+                                    <div style="min-width: 30px;"><i class="fa-solid fa-file-pen" style="color: var(--success);"></i></div>
+                                    <span><strong>Contenido de Valor:</strong> Desarrollo de guiones enfocados en engagement y alcance.</span>
+                                </li>
+                                <li style="margin-bottom: 15px; display: flex; align-items: start;">
+                                    <div style="min-width: 30px;"><i class="fa-solid fa-video" style="color: var(--success);"></i></div>
+                                    <span><strong>Calidad Audiovisual:</strong> Asesoría en grabación, edición y optimización de formatos.</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- COLLAGE INTERACTIVO DE GUIONES -->
+                        <div style="margin-top: 40px; text-align: center;">
+                            <p style="font-size: 14px; color: var(--text-secondary); margin-bottom: 10px; letter-spacing: 1px; text-transform: uppercase;">
+                                <i class="fa-solid fa-hand-pointer" style="margin-right: 5px;"></i> Guiones estratégicos y estructurados
+                            </p>
+                            <div class="script-collage">
+                                <!-- Guion 1 -->
+                                <div class="script-card">
+                                    <img src="guion-cad-1.png" alt="Guion Estratégico 1" onerror="this.src='https://via.placeholder.com/300x400?text=Guion+1'">
+                                </div>
+                                <!-- Guion 2 (Centro) -->
+                                <div class="script-card">
+                                    <img src="guion-cad-2.png" alt="Guion Estratégico 2" onerror="this.src='https://via.placeholder.com/300x400?text=Guion+2'">
+                                </div>
+                                <!-- Guion 3 -->
+                                <div class="script-card">
+                                    <img src="guion-cad-3.png" alt="Guion Estratégico 3" onerror="this.src='https://via.placeholder.com/300x400?text=Guion+3'">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    
+                    <!-- Columna Visual Derecha -->
+                    <div>
+                        <!-- Título eliminado para subir el video -->
+                        
+                        <!-- 1. Video Viral (Ahora está ARRIBA) -->
+                        <div class="video-box" style="width: 100%; aspect-ratio: 9/16; margin: 0 auto 15px auto; max-width: 280px;">
+                             <video controls muted style="width: 100%; height: 100%; object-fit: cover;">
+                                <source src="cad-video.mp4" type="video/mp4">
+                                Tu navegador no soporta videos.
+                            </video>
+                        </div>
+                        
+                        <!-- Métricas del Video Viral -->
+                        <div style="margin-top: 0; text-align: center; background: rgba(255,255,255,0.03); padding: 15px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); max-width: 280px; margin-left: auto; margin-right: auto;">
+                            <p style="color: white; font-weight: 600; font-size: 14px; margin-bottom: 12px; letter-spacing: 0.5px;">Video de mayor rendimiento</p>
+                            <div style="display: flex; justify-content: space-between; font-size: 13px; color: #cbd5e1;">
+                                <div style="display: flex; flex-direction: column; align-items: center; gap: 5px;">
+                                    <i class="fa-solid fa-eye" style="color: var(--accent-blue); font-size: 16px;"></i>
+                                    <span>3.2 mill</span>
+                                </div>
+                                <div style="display: flex; flex-direction: column; align-items: center; gap: 5px;">
+                                    <i class="fa-solid fa-comment" style="color: var(--accent-blue); font-size: 16px;"></i>
+                                    <span>31 k</span>
+                                </div>
+                                <div style="display: flex; flex-direction: column; align-items: center; gap: 5px;">
+                                    <i class="fa-solid fa-user-plus" style="color: var(--success); font-size: 16px;"></i>
+                                    <span>+6000</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 2. Logo Animado (Doble Imagen, sin inversión CSS) -->
+                        <div class="cad-logo-circle">
+                            <!-- IMAGEN POSITIVA (Base, siempre visible al fondo) -->
+                            <img src="cad-logo-pos.jpg" class="logo-pos" alt="Logo Positivo" onerror="this.src='https://via.placeholder.com/150?text=Positivo'">
+                            <!-- IMAGEN NEGATIVA (Superior, aparece y desaparece) -->
+                            <img src="cad-logo-neg.jpg" class="logo-neg" alt="Logo Negativo" onerror="this.src='https://via.placeholder.com/150?text=Negativo'">
+                        </div>
+                        <p style="text-align: center; font-size: 12px; color: var(--text-secondary); margin-top: 10px;">Identidad gráfica (positivo / negativo)</p>
+
+                    </div>
+                </div>
+
+            </div>
+        </article>
+
+        <!-- PROYECTO 3: ESCIEM -->
+        <article class="project-card">
+            <div class="project-header">
+                <div class="project-title">
+                    <span>Content Marketing</span>
+                    <h3>Grupo Esciem</h3>
+                </div>
+            </div>
+            <div class="project-body">
+                <div class="grid-2">
+                    <div>
+                        <h4 style="margin-bottom: 20px; font-size: 18px;">Resultados Solarelc</h4>
+                        <p style="margin-bottom: 25px; color: #d1d5db; font-size: 15px;">Implementación de guiones estratégicos para la campaña educativa y comercial, optimizando la retención de audiencia.</p>
+                        <div style="background: rgba(59, 130, 246, 0.05); padding: 25px; border-radius: 12px; border: 1px solid rgba(59, 130, 246, 0.1);">
+                            <h5 style="color: var(--accent-blue); margin-bottom: 10px; font-size: 14px; text-transform: uppercase; letter-spacing: 1px;">Enfoque de Guionización</h5>
+                            <p style="font-size: 16px; font-style: italic; color: white;">"Hook (Gancho) + Value (Valor) + CTA (Llamada a la acción)"</p>
+                        </div>
+                    </div>
+                    <div>
+                         <div style="background: #111827; border-radius: 12px; height: 200px; display: flex; align-items: center; justify-content: center; border: 1px dashed #374151;">
+                            <p style="color: var(--text-secondary); font-size: 14px;"><i class="fa-regular fa-file-image" style="margin-right: 8px;"></i> Capturas de Guiones</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- SECCIÓN UNIVERSIDAD -->
+        <h2 style="margin-bottom: 30px; margin-top: 80px; font-size: 28px; border-left: 4px solid var(--accent-blue); padding-left: 20px;">Trabajos Universitarios</h2>
+        <div class="uni-grid">
+            <div class="uni-card">
+                <i class="fa-solid fa-mobile-screen"></i>
+                <h4>Entel</h4>
+                <p style="font-size: 13px; color: var(--text-secondary); margin-top: 5px; line-height: 1.5;">Comercial TV + Estrategia de PR + Pieza Radial</p>
+            </div>
+            <div class="uni-card">
+                <i class="fa-solid fa-hand-holding-heart"></i>
+                <h4>Cedro</h4>
+                <p style="font-size: 13px; color: var(--text-secondary); margin-top: 5px; line-height: 1.5;">Spot de Concientización + Pieza Radial</p>
+            </div>
+            <div class="uni-card">
+                <i class="fa-solid fa-bread-slice"></i>
+                <h4>Pan Vital</h4>
+                <p style="font-size: 13px; color: var(--text-secondary); margin-top: 5px; line-height: 1.5;">Lanzamiento de producto + Radio</p>
+            </div>
+            <div class="uni-card">
+                <i class="fa-solid fa-dumbbell"></i>
+                <h4>MyProtein</h4>
+                <p style="font-size: 13px; color: var(--text-secondary); margin-top: 5px; line-height: 1.5;">Comercial deportivo de alto impacto</p>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>© 2026 Marcelo Ivan Garcia Soto. Todos los derechos reservados.</p>
+            <div style="margin-top: 15px; font-size: 20px;">
+                <a href="https://www.linkedin.com/in/marcelo-garcia-soto-377959175/" target="_blank" style="margin: 0 15px; color: #9ca3af; transition: 0.3s;"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="mailto:marcelogarciasoto@gmail.com" style="margin: 0 15px; color: #9ca3af; transition: 0.3s;"><i class="fa-solid fa-envelope"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCRIPT PARA EL SLIDER -->
+    <script>
+        function moveSlider(val) {
+            // Ajustar el recorte de la capa superior (Imagen Renovada)
+            // inset(top right bottom left). El valor 'right' controla cuánto se oculta desde la derecha.
+            // Si el slider está en 0%, queremos ocultar el 100% desde la derecha (mostrar todo Anterior).
+            // Si el slider está en 100%, queremos ocultar el 0% desde la derecha (mostrar todo Renovado).
+            const rightClip = 100 - val;
+            document.getElementById('ba-layer-after').style.clipPath = `inset(0 ${rightClip}% 0 0)`;
+            
+            // Mover la manija
+            document.getElementById('ba-handle').style.left = val + "%";
+        }
+    </script>
+
+</body>
+</html>
