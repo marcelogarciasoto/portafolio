@@ -218,7 +218,7 @@
 
         .metric-label { font-size: 13px; color: var(--text-secondary); font-weight: 500; }
 
-        /* --- BEFORE/AFTER SLIDER (INTERACTIVO) --- */
+        /* --- BEFORE/AFTER SLIDER (INTERACTIVO CORREGIDO) --- */
         .ba-slider {
             position: relative;
             width: 100%;
@@ -229,7 +229,6 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* Estilo general de las imágenes */
         .ba-image {
             width: 100%;
             height: 100%;
@@ -241,28 +240,17 @@
             user-select: none;
         }
 
-        /* Capa inferior: Identidad Anterior */
-        .ba-layer-before {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            background: white;
+        /* CORRECCIÓN Z-INDEX: Capas apiladas correctamente */
+        .ba-layer-before { 
+            width: 100%; height: 100%; position: absolute; top: 0; left: 0; background: white;
+            z-index: 1; /* Capa inferior */
         }
-
-        /* Capa superior: Identidad Renovada (Se recorta) */
-        .ba-layer-after {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            background: white;
+        .ba-layer-after { 
+            width: 100%; height: 100%; position: absolute; top: 0; left: 0; background: white; 
             clip-path: inset(0 50% 0 0); 
+            z-index: 2; /* Capa superior (cubre a la inferior) */
         }
 
-        /* Etiquetas */
         .ba-label {
             position: absolute;
             top: 20px;
@@ -273,63 +261,33 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             color: white;
-            z-index: 10;
             pointer-events: none;
+            /* La etiqueta hereda el z-index de su capa padre, así que se cortará junto con la imagen */
         }
+        .ba-label-before { right: 20px; background: rgba(0,0,0,0.7); }
+        .ba-label-after { left: 20px; background: var(--accent-blue); }
 
-        .ba-label-before {
-            right: 20px;
-            background: rgba(0,0,0,0.7);
-        }
-
-        .ba-label-after {
-            left: 20px;
-            background: var(--accent-blue);
-        }
-
-        /* Línea divisoria y manija */
         .ba-handle {
             position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 50%;
-            width: 4px;
-            background: var(--accent-blue);
-            cursor: ew-resize;
-            z-index: 20;
+            top: 0; bottom: 0; left: 50%; width: 4px; background: var(--accent-blue);
+            cursor: ew-resize; 
+            z-index: 10; /* Encima de las imágenes */
             pointer-events: none;
         }
-
         .ba-circle {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 40px;
-            height: 40px;
-            background: var(--accent-blue);
-            border: 4px solid white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 40px; height: 40px; background: var(--accent-blue);
+            border: 4px solid white; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: white; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
-
         .ba-range-input {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            cursor: ew-resize;
-            z-index: 30;
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: ew-resize; 
+            z-index: 20; /* El controlador debe estar encima de todo */
             margin: 0;
         }
 
-        /* Video Container Styles */
+        /* Video Container Styles (IFRAME) */
         .video-box {
             background: #000;
             border-radius: 12px;
@@ -340,13 +298,13 @@
             width: 100%;
         }
         
-        .video-box video {
+        .video-box iframe {
             width: 100%;
             height: 100%;
-            object-fit: cover; 
+            border: none;
         }
 
-        /* --- COLLAGE DE GUIONES (INTERACTIVO) --- */
+        /* --- COLLAGE DE GUIONES (ZOOM AUMENTADO) --- */
         .script-collage {
             position: relative;
             height: 280px;
@@ -355,7 +313,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            perspective: 1000px; /* Da profundidad 3D */
+            perspective: 1000px;
         }
 
         .script-card {
@@ -365,7 +323,7 @@
             background: #ffffff;
             border-radius: 8px;
             box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-            transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1); /* Movimiento suave */
+            transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
             cursor: pointer;
             overflow: hidden;
             border: 1px solid rgba(255,255,255,0.2);
@@ -380,33 +338,63 @@
             transition: 0.5s;
         }
 
-        /* Estado Inicial: Apilados con rotación sutil */
         .script-card:nth-child(1) { transform: rotate(-6deg) translateX(-15px) scale(0.95); z-index: 1; opacity: 0.8; }
         .script-card:nth-child(2) { transform: rotate(0deg) translateY(0px) scale(1); z-index: 2; }
         .script-card:nth-child(3) { transform: rotate(6deg) translateX(15px) scale(0.95); z-index: 1; opacity: 0.8; }
 
-        /* Estado Hover del Contenedor: Se abren en abanico */
-        .script-collage:hover .script-card:nth-child(1) { 
-            transform: rotate(-15deg) translateX(-100px) translateY(-10px) scale(1); 
-            z-index: 2; 
-            opacity: 1; 
-        }
-        .script-collage:hover .script-card:nth-child(2) { 
-            transform: rotate(0deg) translateY(-20px) scale(1); 
-            z-index: 3; 
-        }
-        .script-collage:hover .script-card:nth-child(3) { 
-            transform: rotate(15deg) translateX(100px) translateY(-10px) scale(1); 
-            z-index: 2; 
-            opacity: 1; 
+        .script-collage:hover .script-card:nth-child(1) { transform: rotate(-15deg) translateX(-100px) translateY(-10px) scale(1); z-index: 2; opacity: 1; }
+        .script-collage:hover .script-card:nth-child(2) { transform: rotate(0deg) translateY(-20px) scale(1); z-index: 3; }
+        .script-collage:hover .script-card:nth-child(3) { transform: rotate(15deg) translateX(100px) translateY(-10px) scale(1); z-index: 2; opacity: 1; }
+
+        /* AUMENTO DE ZOOM: Escala 2.4 para mejor lectura */
+        .script-card:hover {
+            z-index: 100 !important;
+            transform: scale(2.4) translateY(-40px) rotate(0deg) !important;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.8);
+            border-color: var(--accent-blue);
         }
 
-        /* Estado Hover de Carta Individual: Zoom y primer plano */
-        .script-card:hover {
-            z-index: 10 !important;
-            transform: scale(1.3) translateY(-10px) rotate(0deg) !important;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.6);
-            border-color: var(--accent-blue);
+        /* --- ANIMACIÓN LOGO CAD --- */
+        @keyframes fadeSwitch {
+            0%, 45% { opacity: 0; }
+            50%, 95% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+        @keyframes borderSwitch {
+            0%, 45% { border-color: #000; } 
+            50%, 95% { border-color: #fff; } 
+            100% { border-color: #000; }
+        }
+
+        .cad-logo-circle {
+            width: 180px; height: 180px;
+            border-radius: 50%;
+            position: relative;
+            margin: 30px auto 0;
+            border: 2px solid white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            overflow: hidden;
+            background: white; 
+            animation: borderSwitch 6s infinite ease-in-out;
+        }
+        .cad-logo-circle img {
+            width: 100%; height: 100%; object-fit: cover; 
+            position: absolute; top: 0; left: 0;
+        }
+        .logo-pos { z-index: 1; }
+        .logo-neg { z-index: 2; animation: fadeSwitch 6s infinite ease-in-out; }
+
+        /* Social Icon Button Style */
+        .social-icon-btn {
+            width: 36px; height: 36px;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #d1d5db; transition: 0.3s;
+        }
+        .social-icon-btn:hover {
+            background: var(--accent-blue); color: white; border-color: var(--accent-blue); transform: translateY(-2px);
         }
 
         /* --- UNIVERSITY GRID --- */
@@ -415,122 +403,26 @@
             grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
             gap: 25px;
         }
-        
         .uni-card {
-            background: rgba(255,255,255,0.02);
-            padding: 30px;
-            border-radius: 12px;
-            border: 1px solid rgba(255,255,255,0.05);
-            transition: 0.3s;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
+            background: rgba(255,255,255,0.02); padding: 30px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); transition: 0.3s;
+            display: flex; flex-direction: column; align-items: flex-start;
         }
-        .uni-card:hover { 
-            background: rgba(255,255,255,0.04); 
-            transform: translateY(-5px); 
-            border-color: var(--accent-blue);
-        }
+        .uni-card:hover { background: rgba(255,255,255,0.04); transform: translateY(-5px); border-color: var(--accent-blue); }
         .uni-card i { font-size: 28px; color: var(--accent-blue); margin-bottom: 20px; }
         .uni-card h4 { font-size: 18px; margin-bottom: 8px; }
 
-        /* Social Icon Button Style */
-        .social-icon-btn {
-            width: 36px;
-            height: 36px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: #d1d5db;
-            transition: 0.3s;
-        }
-        .social-icon-btn:hover {
-            background: var(--accent-blue);
-            color: white;
-            border-color: var(--accent-blue);
-            transform: translateY(-2px);
-        }
-
-        /* --- ANIMACIÓN LOGO CAD (Crossfade de Imágenes) --- */
-        @keyframes fadeSwitch {
-            0%, 45% { opacity: 0; }
-            50%, 95% { opacity: 1; }
-            100% { opacity: 0; }
-        }
-
-        /* Animación para el color del borde */
-        @keyframes borderSwitch {
-            0%, 45% { border-color: #000; } /* Borde negro para fondo blanco */
-            50%, 95% { border-color: #fff; } /* Borde blanco para fondo negro */
-            100% { border-color: #000; }
-        }
-
-        .cad-logo-circle {
-            width: 180px; /* Aumentado de 140px a 180px */
-            height: 180px;
-            border-radius: 50%;
-            position: relative;
-            margin: 30px auto 0;
-            border: 2px solid white; /* Grosor reducido a 2px */
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            overflow: hidden;
-            background: white; 
-            animation: borderSwitch 6s infinite ease-in-out; /* Animación de borde sincronizada */
-        }
-
-        /* Estilos comunes para ambas imágenes del logo */
-        .cad-logo-circle img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; 
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-
-        /* Imagen Positiva (Base) */
-        .logo-pos {
-            z-index: 1;
-        }
-
-        /* Imagen Negativa (Animada) */
-        .logo-neg {
-            z-index: 2;
-            animation: fadeSwitch 6s infinite ease-in-out;
-        }
-
         /* --- FOOTER --- */
         footer {
-            padding: 60px 0;
-            text-align: center;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            color: var(--text-secondary);
-            font-size: 14px;
-            background: #080c14;
+            padding: 60px 0; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); color: var(--text-secondary); font-size: 14px; background: #080c14;
         }
 
         /* Responsive Adjustments */
         @media (min-width: 768px) {
-            .hero-container {
-                flex-direction: row;
-                text-align: left;
-                justify-content: space-between;
-            }
-            .hero-content {
-                text-align: left;
-            }
-            .contact-bar {
-                justify-content: flex-start;
-            }
-            .hero-image-box {
-                width: 320px;
-                height: 320px;
-            }
+            .hero-container { flex-direction: row; text-align: left; justify-content: space-between; }
+            .hero-content { text-align: left; }
+            .contact-bar { justify-content: flex-start; }
+            .hero-image-box { width: 320px; height: 320px; }
         }
-
         @media (max-width: 768px) {
             .grid-2 { grid-template-columns: 1fr; }
             .project-header { flex-direction: column; align-items: flex-start; }
@@ -543,30 +435,21 @@
     <!-- HERO SECTION -->
     <section class="hero">
         <div class="container hero-container">
-            
-            <!-- Contenido de Texto -->
             <div class="hero-content">
                 <p style="color: var(--accent-blue); font-weight: 600; letter-spacing: 3px; margin-bottom: 15px; font-size: 14px; text-transform: uppercase;">Portafolio Profesional</p>
                 <h1>MARCELO IVAN GARCIA SOTO</h1>
                 <p style="max-width: 600px; margin: 0 auto 35px 0;">Egresado de Ciencias de la Comunicación | Estudiante de Business and Management (BSc)</p>
-                
                 <div class="contact-bar">
                     <div class="contact-item"><i class="fa-solid fa-location-dot"></i> San Isidro, Lima</div>
-                    <!-- Enlace a WhatsApp (se mantiene clickeable) -->
                     <a href="https://wa.me/+51974660915" target="_blank" class="contact-item"><i class="fa-brands fa-whatsapp"></i> 974 660 915</a>
-                    <!-- Email actualizado: Ahora es un div estático, no un enlace -->
                     <div class="contact-item"><i class="fa-solid fa-envelope"></i> marcelogarciasoto@gmail.com</div>
                     <a href="https://www.linkedin.com/in/marcelo-garcia-soto-377959175/" target="_blank" class="contact-item" style="background: #0077b5; border-color: #0077b5; color: white;"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
                 </div>
-
                 <a href="#proyectos" class="btn-cta">Ver Resultados <i class="fa-solid fa-arrow-down" style="margin-left: 10px;"></i></a>
             </div>
-
-            <!-- Foto de Perfil -->
             <div class="hero-image-box">
                 <img src="perfil.jfif" alt="Marcelo Garcia Soto" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=Marcelo+Garcia&background=0D8ABC&color=fff&size=400';">
             </div>
-
         </div>
     </section>
 
@@ -580,16 +463,12 @@
                     <span>Estrategia Digital Integral</span>
                     <h3>Diseñando Detalles</h3>
                 </div>
-                
                 <div style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
-                    <!-- Etiquetas -->
                     <div style="display: flex; gap: 10px;">
                         <span class="contact-item" style="font-size: 12px; padding: 6px 12px;"><i class="fa-brands fa-meta"></i> Meta Ads</span>
                         <span class="contact-item" style="font-size: 12px; padding: 6px 12px;"><i class="fa-solid fa-palette"></i> Rebranding</span>
                         <span class="contact-item" style="font-size: 12px; padding: 6px 12px;"><i class="fa-solid fa-arrow-trend-up"></i> Organic Growth</span>
                     </div>
-                    
-                    <!-- Enlaces Redes Sociales -->
                     <div style="display: flex; gap: 10px; border-left: 1px solid rgba(255,255,255,0.1); padding-left: 15px;">
                         <a href="https://www.instagram.com/disenando_detalles/" target="_blank" class="social-icon-btn" title="Instagram">
                             <i class="fa-brands fa-instagram"></i>
@@ -606,62 +485,31 @@
                     <div>
                         <h4 style="margin-bottom: 25px; color: white; font-size: 18px;">Resultados de Contenido Orgánico</h4>
                         <div class="metrics-grid">
-                            <div class="metric-box">
-                                <span class="metric-number">+20%</span>
-                                <span class="metric-label">Seguidores</span>
-                            </div>
-                            <div class="metric-box">
-                                <span class="metric-number">+2%</span>
-                                <span class="metric-label">Engagement</span>
-                            </div>
+                            <div class="metric-box"><span class="metric-number">+20%</span><span class="metric-label">Seguidores</span></div>
+                            <div class="metric-box"><span class="metric-number">+2%</span><span class="metric-label">Engagement</span></div>
                         </div>
-
                         <h4 style="margin-bottom: 25px; margin-top: 30px; color: white; font-size: 18px;">Performance Pauta Digital</h4>
                         <div class="metrics-grid">
-                            <div class="metric-box">
-                                <span class="metric-number">+46k</span>
-                                <span class="metric-label">Visualizaciones</span>
-                            </div>
-                            <div class="metric-box">
-                                <span class="metric-number">S/ 0.52</span>
-                                <span class="metric-label">Costo por Msj</span>
-                            </div>
-                            <div class="metric-box">
-                                <span class="metric-number">453</span>
-                                <span class="metric-label">Msj Iniciados</span>
-                            </div>
-                            <!-- Eliminado: Tasa Conversión -->
+                            <div class="metric-box"><span class="metric-number">+46k</span><span class="metric-label">Visualizaciones</span></div>
+                            <div class="metric-box"><span class="metric-number">S/ 0.52</span><span class="metric-label">Costo por Msj</span></div>
+                            <div class="metric-box"><span class="metric-number">453</span><span class="metric-label">Msj Iniciados</span></div>
                         </div>
                     </div>
                     <div>
-                        <!-- Título actualizado -->
                         <h4 style="margin-bottom: 25px; color: white; font-size: 18px;">Restyling de Identidad Corporativa</h4>
-                        
                         <!-- COMPARACIÓN INTERACTIVA (SLIDER) -->
                         <div class="ba-slider" id="ba-slider">
-                            
-                            <!-- Capa Inferior: Identidad Anterior (Fondo) -->
                             <div class="ba-layer-before">
-                                <span class="ba-label ba-label-before">Identidad Anterior</span>
-                                <img src="logo-anterior.jpg" class="ba-image" alt="Logo Anterior" onerror="this.src='https://via.placeholder.com/200x200?text=Logo+Anterior'">
+                                <span class="ba-label ba-label-before" id="label-anterior">Identidad Anterior</span>
+                                <img src="logo-anterior.jpg" class="ba-image" alt="Logo Anterior">
                             </div>
-
-                            <!-- Capa Superior: Identidad Renovada (Se recorta) -->
                             <div class="ba-layer-after" id="ba-layer-after">
                                 <span class="ba-label ba-label-after">Identidad Renovada</span>
-                                <img src="logo-nuevo.jpg" class="ba-image" alt="Logo Renovado" onerror="this.src='https://via.placeholder.com/200x200?text=Logo+Nuevo'">
+                                <img src="logo-nuevo.jpg" class="ba-image" alt="Logo Renovado">
                             </div>
-
-                            <!-- Manija Deslizante -->
-                            <div class="ba-handle" id="ba-handle">
-                                <div class="ba-circle"><i class="fa-solid fa-arrows-left-right"></i></div>
-                            </div>
-
-                            <!-- Input Range Invisible para controlar el movimiento -->
+                            <div class="ba-handle" id="ba-handle"><div class="ba-circle"><i class="fa-solid fa-arrows-left-right"></i></div></div>
                             <input type="range" min="0" max="100" value="50" class="ba-range-input" oninput="moveSlider(this.value)">
-
                         </div>
-
                     </div>
                 </div>
 
@@ -670,17 +518,13 @@
                     Impacto total: Generación de un incremento del 30% en ventas globales.
                 </p>
 
-                <!-- NUEVA SECCIÓN: Videos con mayor alcance (VERSIÓN ARCHIVO LOCAL) -->
+                <!-- NUEVA SECCIÓN: Videos con mayor alcance (IFRAMES DRIVE) -->
                 <div style="margin-top: 50px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 30px;">
                     <h4 style="margin-bottom: 30px; color: white; font-size: 20px; text-align: center;">Contenido para las 3 etapas del funnel</h4>
                     <div class="grid-3">
-                        <!-- Video 1 -->
                         <div>
                             <div class="video-box">
-                                <video controls muted>
-                                    <source src="video1.mp4" type="video/mp4">
-                                    Tu navegador no soporta videos.
-                                </video>
+                                <iframe src="https://drive.google.com/file/d/1WU8TYiidohWqrIU2Xw6LuHgRriILGL0V/preview" allow="autoplay"></iframe>
                             </div>
                             <div style="margin-top: 15px; text-align: center;">
                                 <h5 style="color: var(--accent-blue); margin-bottom: 5px;">Awareness</h5>
@@ -688,13 +532,9 @@
                                 <p style="color: var(--text-secondary); font-size: 13px;">Visualizaciones: <span style="color: var(--success);">29.5K</span></p>
                             </div>
                         </div>
-                        <!-- Video 2 -->
                         <div>
                             <div class="video-box">
-                                <video controls muted>
-                                    <source src="video2.mp4" type="video/mp4">
-                                    Tu navegador no soporta videos.
-                                </video>
+                                <iframe src="https://drive.google.com/file/d/1vG3bgR4g8YNaFKkKIe2sof2FnlS3QOpS/preview" allow="autoplay"></iframe>
                             </div>
                             <div style="margin-top: 15px; text-align: center;">
                                 <h5 style="color: var(--accent-blue); margin-bottom: 5px;">Consideración</h5>
@@ -702,13 +542,9 @@
                                 <p style="color: var(--text-secondary); font-size: 13px;">Engagement: <span style="color: var(--success);">4.6%</span></p>
                             </div>
                         </div>
-                        <!-- Video 3 -->
                         <div>
                             <div class="video-box">
-                                <video controls muted>
-                                    <source src="video3.mp4" type="video/mp4">
-                                    Tu navegador no soporta videos.
-                                </video>
+                                <iframe src="https://drive.google.com/file/d/1FHPPFz-Hrt0_zJID-Xs6sgYrnrRna1SV/preview" allow="autoplay"></iframe>
                             </div>
                             <div style="margin-top: 15px; text-align: center;">
                                 <h5 style="color: var(--accent-blue); margin-bottom: 5px;">Conversión</h5>
@@ -718,7 +554,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </article>
 
@@ -729,22 +564,14 @@
                     <span>Consultoría y Growth Freelance</span>
                     <h3>CAD Consultorios</h3>
                 </div>
-                
                 <div style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
-                    <!-- Etiquetas -->
                     <div style="display: flex; gap: 10px;">
                         <span class="contact-item" style="font-size: 12px; padding: 6px 12px;"><i class="fa-brands fa-tiktok"></i> TikTok Growth</span>
                         <span class="contact-item" style="font-size: 12px; padding: 6px 12px;"><i class="fa-solid fa-pen-nib"></i> Identidad Visual</span>
                     </div>
-
-                    <!-- Enlaces Redes Sociales (CAD) -->
                     <div style="display: flex; gap: 10px; border-left: 1px solid rgba(255,255,255,0.1); padding-left: 15px;">
-                        <a href="https://www.facebook.com/profile.php?id=100057145284236" target="_blank" class="social-icon-btn" title="Facebook">
-                            <i class="fa-brands fa-facebook"></i>
-                        </a>
-                        <a href="https://www.tiktok.com/@cadconsultorios" target="_blank" class="social-icon-btn" title="TikTok">
-                            <i class="fa-brands fa-tiktok"></i>
-                        </a>
+                        <a href="https://www.facebook.com/profile.php?id=100057145284236" target="_blank" class="social-icon-btn" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
+                        <a href="https://www.tiktok.com/@cadconsultorios" target="_blank" class="social-icon-btn" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
                     </div>
                 </div>
             </div>
@@ -753,16 +580,9 @@
                     <div>
                         <h4 style="margin-bottom: 25px; color: white; font-size: 18px;">Resultados en 2 Meses</h4>
                         <div class="metrics-grid">
-                            <div class="metric-box">
-                                <span class="metric-number">+11.5K</span>
-                                <span class="metric-label">Seguidores TikTok</span>
-                            </div>
-                            <div class="metric-box">
-                                <span class="metric-number">+600</span>
-                                <span class="metric-label">Seguidores FB</span>
-                            </div>
+                            <div class="metric-box"><span class="metric-number">+11.5K</span><span class="metric-label">Seguidores TikTok</span></div>
+                            <div class="metric-box"><span class="metric-number">+600</span><span class="metric-label">Seguidores FB</span></div>
                         </div>
-                        
                         <div style="margin-top: 35px;">
                             <h5 style="color: var(--accent-blue); margin-bottom: 20px; font-size: 16px;">Estrategia Implementada</h5>
                             <ul style="color: #d1d5db; font-size: 15px; list-style: none; padding: 0;">
@@ -784,73 +604,55 @@
                                 </li>
                             </ul>
                         </div>
-
                         <!-- COLLAGE INTERACTIVO DE GUIONES -->
                         <div style="margin-top: 40px; text-align: center;">
                             <p style="font-size: 14px; color: var(--text-secondary); margin-bottom: 10px; letter-spacing: 1px; text-transform: uppercase;">
                                 <i class="fa-solid fa-hand-pointer" style="margin-right: 5px;"></i> Guiones estratégicos y estructurados
                             </p>
                             <div class="script-collage">
-                                <!-- Guion 1 -->
                                 <div class="script-card">
                                     <img src="guion-cad-1.png" alt="Guion Estratégico 1" onerror="this.src='https://via.placeholder.com/300x400?text=Guion+1'">
                                 </div>
-                                <!-- Guion 2 (Centro) -->
                                 <div class="script-card">
                                     <img src="guion-cad-2.png" alt="Guion Estratégico 2" onerror="this.src='https://via.placeholder.com/300x400?text=Guion+2'">
                                 </div>
-                                <!-- Guion 3 -->
                                 <div class="script-card">
                                     <img src="guion-cad-3.png" alt="Guion Estratégico 3" onerror="this.src='https://via.placeholder.com/300x400?text=Guion+3'">
                                 </div>
                             </div>
                         </div>
-
                     </div>
                     
                     <!-- Columna Visual Derecha -->
                     <div>
-                        <!-- Título eliminado para subir el video -->
-                        
-                        <!-- 1. Video Viral (Ahora está ARRIBA) -->
+                        <h4 style="margin-bottom: 20px; color: white; font-size: 18px;">Video de mayor rendimiento</h4>
+                        <!-- 1. Video Viral (IFRAME DRIVE) -->
                         <div class="video-box" style="width: 100%; aspect-ratio: 9/16; margin: 0 auto 15px auto; max-width: 280px;">
-                             <video controls muted style="width: 100%; height: 100%; object-fit: cover;">
-                                <source src="cad-video.mp4" type="video/mp4">
-                                Tu navegador no soporta videos.
-                            </video>
+                             <iframe src="https://drive.google.com/file/d/1luDzespT5FqTGLZQyadpZ_NXDMJzplmL/preview" allow="autoplay"></iframe>
                         </div>
-                        
                         <!-- Métricas del Video Viral -->
                         <div style="margin-top: 0; text-align: center; background: rgba(255,255,255,0.03); padding: 15px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); max-width: 280px; margin-left: auto; margin-right: auto;">
-                            <p style="color: white; font-weight: 600; font-size: 14px; margin-bottom: 12px; letter-spacing: 0.5px;">Video de mayor rendimiento</p>
+                            <p style="color: white; font-weight: 600; font-size: 14px; margin-bottom: 12px; letter-spacing: 0.5px;">Estadísticas Clave</p>
                             <div style="display: flex; justify-content: space-between; font-size: 13px; color: #cbd5e1;">
                                 <div style="display: flex; flex-direction: column; align-items: center; gap: 5px;">
-                                    <i class="fa-solid fa-eye" style="color: var(--accent-blue); font-size: 16px;"></i>
-                                    <span>3.2 mill</span>
+                                    <i class="fa-solid fa-eye" style="color: var(--accent-blue); font-size: 16px;"></i><span>3.2 mill</span>
                                 </div>
                                 <div style="display: flex; flex-direction: column; align-items: center; gap: 5px;">
-                                    <i class="fa-solid fa-comment" style="color: var(--accent-blue); font-size: 16px;"></i>
-                                    <span>31 k</span>
+                                    <i class="fa-solid fa-comment" style="color: var(--accent-blue); font-size: 16px;"></i><span>31 k</span>
                                 </div>
                                 <div style="display: flex; flex-direction: column; align-items: center; gap: 5px;">
-                                    <i class="fa-solid fa-user-plus" style="color: var(--success); font-size: 16px;"></i>
-                                    <span>+6000</span>
+                                    <i class="fa-solid fa-user-plus" style="color: var(--success); font-size: 16px;"></i><span>+6000</span>
                                 </div>
                             </div>
                         </div>
-
-                        <!-- 2. Logo Animado (Doble Imagen, sin inversión CSS) -->
+                        <!-- 2. Logo Animado -->
                         <div class="cad-logo-circle">
-                            <!-- IMAGEN POSITIVA (Base, siempre visible al fondo) -->
                             <img src="cad-logo-pos.jpg" class="logo-pos" alt="Logo Positivo" onerror="this.src='https://via.placeholder.com/150?text=Positivo'">
-                            <!-- IMAGEN NEGATIVA (Superior, aparece y desaparece) -->
                             <img src="cad-logo-neg.jpg" class="logo-neg" alt="Logo Negativo" onerror="this.src='https://via.placeholder.com/150?text=Negativo'">
                         </div>
                         <p style="text-align: center; font-size: 12px; color: var(--text-secondary); margin-top: 10px;">Identidad gráfica (positivo / negativo)</p>
-
                     </div>
                 </div>
-
             </div>
         </article>
 
@@ -885,27 +687,22 @@
         <h2 style="margin-bottom: 30px; margin-top: 80px; font-size: 28px; border-left: 4px solid var(--accent-blue); padding-left: 20px;">Trabajos Universitarios</h2>
         <div class="uni-grid">
             <div class="uni-card">
-                <i class="fa-solid fa-mobile-screen"></i>
-                <h4>Entel</h4>
+                <i class="fa-solid fa-mobile-screen"></i><h4>Entel</h4>
                 <p style="font-size: 13px; color: var(--text-secondary); margin-top: 5px; line-height: 1.5;">Comercial TV + Estrategia de PR + Pieza Radial</p>
             </div>
             <div class="uni-card">
-                <i class="fa-solid fa-hand-holding-heart"></i>
-                <h4>Cedro</h4>
+                <i class="fa-solid fa-hand-holding-heart"></i><h4>Cedro</h4>
                 <p style="font-size: 13px; color: var(--text-secondary); margin-top: 5px; line-height: 1.5;">Spot de Concientización + Pieza Radial</p>
             </div>
             <div class="uni-card">
-                <i class="fa-solid fa-bread-slice"></i>
-                <h4>Pan Vital</h4>
+                <i class="fa-solid fa-bread-slice"></i><h4>Pan Vital</h4>
                 <p style="font-size: 13px; color: var(--text-secondary); margin-top: 5px; line-height: 1.5;">Lanzamiento de producto + Radio</p>
             </div>
             <div class="uni-card">
-                <i class="fa-solid fa-dumbbell"></i>
-                <h4>MyProtein</h4>
+                <i class="fa-solid fa-dumbbell"></i><h4>MyProtein</h4>
                 <p style="font-size: 13px; color: var(--text-secondary); margin-top: 5px; line-height: 1.5;">Comercial deportivo de alto impacto</p>
             </div>
         </div>
-
     </div>
 
     <footer>
@@ -921,17 +718,10 @@
     <!-- SCRIPT PARA EL SLIDER -->
     <script>
         function moveSlider(val) {
-            // Ajustar el recorte de la capa superior (Imagen Renovada)
-            // inset(top right bottom left). El valor 'right' controla cuánto se oculta desde la derecha.
-            // Si el slider está en 0%, queremos ocultar el 100% desde la derecha (mostrar todo Anterior).
-            // Si el slider está en 100%, queremos ocultar el 0% desde la derecha (mostrar todo Renovado).
             const rightClip = 100 - val;
             document.getElementById('ba-layer-after').style.clipPath = `inset(0 ${rightClip}% 0 0)`;
-            
-            // Mover la manija
             document.getElementById('ba-handle').style.left = val + "%";
         }
     </script>
-
 </body>
 </html>
