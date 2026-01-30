@@ -229,50 +229,40 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .ba-image {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            padding: 30px;
-            position: absolute;
-            top: 0;
-            left: 0;
-            user-select: none;
-        }
-
-        /* CORRECCIÓN Z-INDEX: Capas apiladas correctamente */
+        /* Capa inferior (Fondo, z-index 1) */
         .ba-layer-before { 
             width: 100%; height: 100%; position: absolute; top: 0; left: 0; background: white;
-            z-index: 1; /* Capa inferior */
+            z-index: 1; 
         }
+        
+        /* Capa superior (Recortada, z-index 2) */
         .ba-layer-after { 
             width: 100%; height: 100%; position: absolute; top: 0; left: 0; background: white; 
             clip-path: inset(0 50% 0 0); 
-            z-index: 2; /* Capa superior (cubre a la inferior) */
+            z-index: 2; 
         }
 
+        /* Imágenes */
+        .ba-image {
+            width: 100%; height: 100%; object-fit: contain; padding: 30px;
+            position: absolute; top: 0; left: 0; user-select: none;
+            z-index: 5; /* Imagen sobre el fondo */
+        }
+
+        /* Etiquetas (TEXTO) */
         .ba-label {
-            position: absolute;
-            top: 20px;
-            padding: 6px 16px;
-            border-radius: 50px;
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: white;
+            position: absolute; top: 20px; padding: 6px 16px;
+            border-radius: 50px; font-size: 11px; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 1px; color: white;
+            z-index: 10; /* Texto sobre la imagen */
             pointer-events: none;
-            /* La etiqueta hereda el z-index de su capa padre, así que se cortará junto con la imagen */
         }
         .ba-label-before { right: 20px; background: rgba(0,0,0,0.7); }
         .ba-label-after { left: 20px; background: var(--accent-blue); }
 
         .ba-handle {
-            position: absolute;
-            top: 0; bottom: 0; left: 50%; width: 4px; background: var(--accent-blue);
-            cursor: ew-resize; 
-            z-index: 10; /* Encima de las imágenes */
-            pointer-events: none;
+            position: absolute; top: 0; bottom: 0; left: 50%; width: 4px; background: var(--accent-blue);
+            cursor: ew-resize; z-index: 20; pointer-events: none;
         }
         .ba-circle {
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
@@ -282,12 +272,10 @@
             color: white; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
         .ba-range-input {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: ew-resize; 
-            z-index: 20; /* El controlador debe estar encima de todo */
-            margin: 0;
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: ew-resize; z-index: 30; margin: 0;
         }
 
-        /* Video Container Styles (IFRAME) */
+        /* Video Container Styles (DRIVE CORREGIDO) */
         .video-box {
             background: #000;
             border-radius: 12px;
@@ -304,6 +292,22 @@
             border: none;
         }
 
+        /* Wrapper especial para ajustar zoom de videos de Drive verticales */
+        .drive-video-wrapper {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .drive-video-wrapper iframe {
+            /* Truco CSS para "hacer zoom" al iframe y quitar bordes negros */
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0; left: 0;
+        }
+
         /* --- COLLAGE DE GUIONES (ZOOM AUMENTADO) --- */
         .script-collage {
             position: relative;
@@ -318,25 +322,15 @@
 
         .script-card {
             position: absolute;
-            width: 160px; 
-            height: 220px;
-            background: #ffffff;
-            border-radius: 8px;
+            width: 160px; height: 220px;
+            background: #ffffff; border-radius: 8px;
             box-shadow: 0 10px 20px rgba(0,0,0,0.3);
             transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
-            cursor: pointer;
-            overflow: hidden;
+            cursor: pointer; overflow: hidden;
             border: 1px solid rgba(255,255,255,0.2);
             transform-origin: bottom center;
         }
-
-        .script-card img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: top;
-            transition: 0.5s;
-        }
+        .script-card img { width: 100%; height: 100%; object-fit: cover; object-position: top; transition: 0.5s; }
 
         .script-card:nth-child(1) { transform: rotate(-6deg) translateX(-15px) scale(0.95); z-index: 1; opacity: 0.8; }
         .script-card:nth-child(2) { transform: rotate(0deg) translateY(0px) scale(1); z-index: 2; }
@@ -346,10 +340,10 @@
         .script-collage:hover .script-card:nth-child(2) { transform: rotate(0deg) translateY(-20px) scale(1); z-index: 3; }
         .script-collage:hover .script-card:nth-child(3) { transform: rotate(15deg) translateX(100px) translateY(-10px) scale(1); z-index: 2; opacity: 1; }
 
-        /* AUMENTO DE ZOOM: Escala 2.4 para mejor lectura */
+        /* AUMENTO DE ZOOM: Escala 2.2 */
         .script-card:hover {
             z-index: 100 !important;
-            transform: scale(2.4) translateY(-40px) rotate(0deg) !important;
+            transform: scale(2.2) translateY(-40px) rotate(0deg) !important;
             box-shadow: 0 40px 80px rgba(0,0,0,0.8);
             border-color: var(--accent-blue);
         }
@@ -497,7 +491,7 @@
                     </div>
                     <div>
                         <h4 style="margin-bottom: 25px; color: white; font-size: 18px;">Restyling de Identidad Corporativa</h4>
-                        <!-- COMPARACIÓN INTERACTIVA (SLIDER) -->
+                        <!-- COMPARACIÓN INTERACTIVA (SLIDER CORREGIDO) -->
                         <div class="ba-slider" id="ba-slider">
                             <div class="ba-layer-before">
                                 <span class="ba-label ba-label-before" id="label-anterior">Identidad Anterior</span>
@@ -518,13 +512,15 @@
                     Impacto total: Generación de un incremento del 30% en ventas globales.
                 </p>
 
-                <!-- NUEVA SECCIÓN: Videos con mayor alcance (IFRAMES DRIVE) -->
+                <!-- NUEVA SECCIÓN: Videos con mayor alcance (DRIVE) -->
                 <div style="margin-top: 50px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 30px;">
                     <h4 style="margin-bottom: 30px; color: white; font-size: 20px; text-align: center;">Contenido para las 3 etapas del funnel</h4>
                     <div class="grid-3">
                         <div>
                             <div class="video-box">
-                                <iframe src="https://drive.google.com/file/d/1WU8TYiidohWqrIU2Xw6LuHgRriILGL0V/preview" allow="autoplay"></iframe>
+                                <div class="drive-video-wrapper">
+                                    <iframe src="https://drive.google.com/file/d/1vG3bgR4g8YNaFKkKIe2sof2FnlS3QOpS/preview" allow="autoplay"></iframe>
+                                </div>
                             </div>
                             <div style="margin-top: 15px; text-align: center;">
                                 <h5 style="color: var(--accent-blue); margin-bottom: 5px;">Awareness</h5>
@@ -534,7 +530,9 @@
                         </div>
                         <div>
                             <div class="video-box">
-                                <iframe src="https://drive.google.com/file/d/1vG3bgR4g8YNaFKkKIe2sof2FnlS3QOpS/preview" allow="autoplay"></iframe>
+                                <div class="drive-video-wrapper">
+                                    <iframe src="https://drive.google.com/file/d/1FHPPFz-Hrt0_zJID-Xs6sgYrnrRna1SV/preview" allow="autoplay"></iframe>
+                                </div>
                             </div>
                             <div style="margin-top: 15px; text-align: center;">
                                 <h5 style="color: var(--accent-blue); margin-bottom: 5px;">Consideración</h5>
@@ -544,7 +542,9 @@
                         </div>
                         <div>
                             <div class="video-box">
-                                <iframe src="https://drive.google.com/file/d/1FHPPFz-Hrt0_zJID-Xs6sgYrnrRna1SV/preview" allow="autoplay"></iframe>
+                                <div class="drive-video-wrapper">
+                                    <iframe src="https://drive.google.com/file/d/1WU8TYiidohWqrIU2Xw6LuHgRriILGL0V/preview" allow="autoplay"></iframe>
+                                </div>
                             </div>
                             <div style="margin-top: 15px; text-align: center;">
                                 <h5 style="color: var(--accent-blue); margin-bottom: 5px;">Conversión</h5>
@@ -625,14 +625,15 @@
                     
                     <!-- Columna Visual Derecha -->
                     <div>
-                        <h4 style="margin-bottom: 20px; color: white; font-size: 18px;">Video de mayor rendimiento</h4>
                         <!-- 1. Video Viral (IFRAME DRIVE) -->
                         <div class="video-box" style="width: 100%; aspect-ratio: 9/16; margin: 0 auto 15px auto; max-width: 280px;">
-                             <iframe src="https://drive.google.com/file/d/1luDzespT5FqTGLZQyadpZ_NXDMJzplmL/preview" allow="autoplay"></iframe>
+                             <div class="drive-video-wrapper">
+                                <iframe src="https://drive.google.com/file/d/1luDzespT5FqTGLZQyadpZ_NXDMJzplmL/preview" allow="autoplay"></iframe>
+                             </div>
                         </div>
                         <!-- Métricas del Video Viral -->
                         <div style="margin-top: 0; text-align: center; background: rgba(255,255,255,0.03); padding: 15px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); max-width: 280px; margin-left: auto; margin-right: auto;">
-                            <p style="color: white; font-weight: 600; font-size: 14px; margin-bottom: 12px; letter-spacing: 0.5px;">Estadísticas Clave</p>
+                            <p style="color: white; font-weight: 600; font-size: 14px; margin-bottom: 12px; letter-spacing: 0.5px;">Video de mayor rendimiento</p>
                             <div style="display: flex; justify-content: space-between; font-size: 13px; color: #cbd5e1;">
                                 <div style="display: flex; flex-direction: column; align-items: center; gap: 5px;">
                                     <i class="fa-solid fa-eye" style="color: var(--accent-blue); font-size: 16px;"></i><span>3.2 mill</span>
