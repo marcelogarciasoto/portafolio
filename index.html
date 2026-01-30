@@ -218,43 +218,52 @@
 
         .metric-label { font-size: 13px; color: var(--text-secondary); font-weight: 500; }
 
-        /* --- BEFORE/AFTER SLIDER (INTERACTIVO CORREGIDO) --- */
+        /* --- BEFORE/AFTER SLIDER (INTERACTIVO FIXED) --- */
         .ba-slider {
             position: relative;
             width: 100%;
             height: 480px;
-            background: #ffffff;
+            background: transparent;
             border-radius: 12px;
             overflow: hidden;
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* Capa inferior (Fondo, z-index 1) */
+        .ba-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 30px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            user-select: none;
+        }
+
         .ba-layer-before { 
-            width: 100%; height: 100%; position: absolute; top: 0; left: 0; background: white;
+            width: 100%; height: 100%; position: absolute; top: 0; left: 0; 
+            background: white; 
             z-index: 1; 
         }
         
-        /* Capa superior (Recortada, z-index 2) */
         .ba-layer-after { 
-            width: 100%; height: 100%; position: absolute; top: 0; left: 0; background: white; 
+            width: 100%; height: 100%; position: absolute; top: 0; left: 0; 
+            background: white; 
             clip-path: inset(0 50% 0 0); 
             z-index: 2; 
         }
 
-        /* Imágenes */
-        .ba-image {
-            width: 100%; height: 100%; object-fit: contain; padding: 30px;
-            position: absolute; top: 0; left: 0; user-select: none;
-            z-index: 5; /* Imagen sobre el fondo */
-        }
-
-        /* Etiquetas (TEXTO) */
         .ba-label {
-            position: absolute; top: 20px; padding: 6px 16px;
-            border-radius: 50px; font-size: 11px; font-weight: 700;
-            text-transform: uppercase; letter-spacing: 1px; color: white;
-            z-index: 10; /* Texto sobre la imagen */
+            position: absolute;
+            top: 20px;
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: white;
+            z-index: 10;
             pointer-events: none;
         }
         .ba-label-before { right: 20px; background: rgba(0,0,0,0.7); }
@@ -275,7 +284,7 @@
             position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: ew-resize; z-index: 30; margin: 0;
         }
 
-        /* Video Container Styles (DRIVE CORREGIDO) */
+        /* Video Container Styles (IFRAME & DRIVE FIX) */
         .video-box {
             background: #000;
             border-radius: 12px;
@@ -292,123 +301,102 @@
             border: none;
         }
 
-        /* Wrapper especial para ajustar zoom de videos de Drive verticales */
-        .drive-video-wrapper {
+        .drive-video-fix iframe {
             width: 100%;
             height: 100%;
-            overflow: hidden;
-            position: relative;
-        }
-        
-        .drive-video-wrapper iframe {
-            /* Truco CSS para "hacer zoom" al iframe y quitar bordes negros */
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            top: 0; left: 0;
+            transform: scale(1.05);
+            transform-origin: center;
         }
 
-        /* --- COLLAGE DE GUIONES (ZOOM AUMENTADO) --- */
-        .script-collage {
-            position: relative;
-            height: 280px;
-            width: 100%;
-            margin-top: 30px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            perspective: 1000px;
-        }
-
-        .script-card {
-            position: absolute;
-            width: 160px; height: 220px;
-            background: #ffffff; border-radius: 8px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-            transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
-            cursor: pointer; overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.2);
-            transform-origin: bottom center;
-        }
+        /* --- COLLAGE GUIONES --- */
+        .script-collage { position: relative; height: 280px; width: 100%; margin-top: 30px; display: flex; justify-content: center; align-items: center; perspective: 1000px; }
+        .script-card { position: absolute; width: 160px; height: 220px; background: #ffffff; border-radius: 8px; box-shadow: 0 10px 20px rgba(0,0,0,0.3); transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1); cursor: pointer; overflow: hidden; border: 1px solid rgba(255,255,255,0.2); transform-origin: bottom center; }
         .script-card img { width: 100%; height: 100%; object-fit: cover; object-position: top; transition: 0.5s; }
-
         .script-card:nth-child(1) { transform: rotate(-6deg) translateX(-15px) scale(0.95); z-index: 1; opacity: 0.8; }
         .script-card:nth-child(2) { transform: rotate(0deg) translateY(0px) scale(1); z-index: 2; }
         .script-card:nth-child(3) { transform: rotate(6deg) translateX(15px) scale(0.95); z-index: 1; opacity: 0.8; }
-
         .script-collage:hover .script-card:nth-child(1) { transform: rotate(-15deg) translateX(-100px) translateY(-10px) scale(1); z-index: 2; opacity: 1; }
         .script-collage:hover .script-card:nth-child(2) { transform: rotate(0deg) translateY(-20px) scale(1); z-index: 3; }
         .script-collage:hover .script-card:nth-child(3) { transform: rotate(15deg) translateX(100px) translateY(-10px) scale(1); z-index: 2; opacity: 1; }
+        .script-card:hover { z-index: 100 !important; transform: scale(2.2) translateY(-40px) rotate(0deg) !important; box-shadow: 0 40px 80px rgba(0,0,0,0.8); border-color: var(--accent-blue); }
 
-        /* AUMENTO DE ZOOM: Escala 2.2 */
-        .script-card:hover {
-            z-index: 100 !important;
-            transform: scale(2.2) translateY(-40px) rotate(0deg) !important;
-            box-shadow: 0 40px 80px rgba(0,0,0,0.8);
-            border-color: var(--accent-blue);
-        }
-
-        /* --- ANIMACIÓN LOGO CAD --- */
-        @keyframes fadeSwitch {
-            0%, 45% { opacity: 0; }
-            50%, 95% { opacity: 1; }
-            100% { opacity: 0; }
-        }
-        @keyframes borderSwitch {
-            0%, 45% { border-color: #000; } 
-            50%, 95% { border-color: #fff; } 
-            100% { border-color: #000; }
-        }
-
-        .cad-logo-circle {
-            width: 180px; height: 180px;
-            border-radius: 50%;
-            position: relative;
-            margin: 30px auto 0;
-            border: 2px solid white;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        /* --- ESTILOS ESCIEM (CARRUSELES INFINITOS) --- */
+        
+        .marquee-container {
             overflow: hidden;
-            background: white; 
-            animation: borderSwitch 6s infinite ease-in-out;
-        }
-        .cad-logo-circle img {
-            width: 100%; height: 100%; object-fit: cover; 
-            position: absolute; top: 0; left: 0;
-        }
-        .logo-pos { z-index: 1; }
-        .logo-neg { z-index: 2; animation: fadeSwitch 6s infinite ease-in-out; }
-
-        /* Social Icon Button Style */
-        .social-icon-btn {
-            width: 36px; height: 36px;
-            display: flex; align-items: center; justify-content: center;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: #d1d5db; transition: 0.3s;
-        }
-        .social-icon-btn:hover {
-            background: var(--accent-blue); color: white; border-color: var(--accent-blue); transform: translateY(-2px);
+            width: 100%;
+            position: relative;
+            mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
         }
 
-        /* --- UNIVERSITY GRID --- */
-        .uni-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-            gap: 25px;
+        .marquee-content {
+            display: flex;
+            gap: 20px;
+            width: max-content;
+            animation: marquee-scroll 25s linear infinite; 
         }
-        .uni-card {
-            background: rgba(255,255,255,0.02); padding: 30px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); transition: 0.3s;
-            display: flex; flex-direction: column; align-items: flex-start;
+
+        .grid-item {
+            width: 180px;
+            height: 240px;
+            flex-shrink: 0;
+            background: #1e293b;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
         }
+        .grid-item img { width: 100%; height: 100%; object-fit: cover; }
+
+        .sectors-marquee-content {
+            display: flex;
+            gap: 15px;
+            width: max-content;
+            animation: marquee-scroll 35s linear infinite; 
+        }
+
+        .sector-badge {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 50px; 
+            padding: 10px 20px;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #cbd5e1;
+            font-size: 13px;
+        }
+        .sector-badge i { color: var(--accent-blue); font-size: 16px; }
+        .sector-badge:hover {
+            background: rgba(59, 130, 246, 0.1);
+            border-color: var(--accent-blue);
+            color: white;
+        }
+
+        @keyframes marquee-scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); } 
+        }
+
+        /* --- OTROS --- */
+        .social-icon-btn { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); color: #d1d5db; transition: 0.3s; }
+        .social-icon-btn:hover { background: var(--accent-blue); color: white; border-color: var(--accent-blue); transform: translateY(-2px); }
+
+        .uni-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 25px; }
+        .uni-card { background: rgba(255,255,255,0.02); padding: 30px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); transition: 0.3s; display: flex; flex-direction: column; align-items: flex-start; }
         .uni-card:hover { background: rgba(255,255,255,0.04); transform: translateY(-5px); border-color: var(--accent-blue); }
         .uni-card i { font-size: 28px; color: var(--accent-blue); margin-bottom: 20px; }
         .uni-card h4 { font-size: 18px; margin-bottom: 8px; }
 
-        /* --- FOOTER --- */
-        footer {
-            padding: 60px 0; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); color: var(--text-secondary); font-size: 14px; background: #080c14;
-        }
+        /* LOGO CAD ANIM */
+        .cad-logo-circle { width: 180px; height: 180px; border-radius: 50%; position: relative; margin: 30px auto 0; border: 2px solid white; box-shadow: 0 10px 30px rgba(0,0,0,0.3); overflow: hidden; background: white; animation: borderSwitch 6s infinite ease-in-out; }
+        .cad-logo-circle img { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; }
+        .logo-pos { z-index: 1; }
+        .logo-neg { z-index: 2; animation: fadeSwitch 6s infinite ease-in-out; }
+        @keyframes fadeSwitch { 0%, 45% { opacity: 0; } 50%, 95% { opacity: 1; } 100% { opacity: 0; } }
+        @keyframes borderSwitch { 0%, 45% { border-color: #000; } 50%, 95% { border-color: #fff; } 100% { border-color: #000; } }
+
+        footer { padding: 60px 0; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); color: var(--text-secondary); font-size: 14px; background: #080c14; }
 
         /* Responsive Adjustments */
         @media (min-width: 768px) {
@@ -491,10 +479,10 @@
                     </div>
                     <div>
                         <h4 style="margin-bottom: 25px; color: white; font-size: 18px;">Restyling de Identidad Corporativa</h4>
-                        <!-- COMPARACIÓN INTERACTIVA (SLIDER CORREGIDO) -->
+                        <!-- COMPARACIÓN INTERACTIVA (SLIDER) -->
                         <div class="ba-slider" id="ba-slider">
                             <div class="ba-layer-before">
-                                <span class="ba-label ba-label-before" id="label-anterior">Identidad Anterior</span>
+                                <span class="ba-label ba-label-before">Identidad Anterior</span>
                                 <img src="logo-anterior.jpg" class="ba-image" alt="Logo Anterior">
                             </div>
                             <div class="ba-layer-after" id="ba-layer-after">
@@ -512,15 +500,13 @@
                     Impacto total: Generación de un incremento del 30% en ventas globales.
                 </p>
 
-                <!-- NUEVA SECCIÓN: Videos con mayor alcance (DRIVE) -->
+                <!-- NUEVA SECCIÓN: Videos con mayor alcance (IFRAMES DRIVE) -->
                 <div style="margin-top: 50px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 30px;">
                     <h4 style="margin-bottom: 30px; color: white; font-size: 20px; text-align: center;">Contenido para las 3 etapas del funnel</h4>
                     <div class="grid-3">
                         <div>
-                            <div class="video-box">
-                                <div class="drive-video-wrapper">
-                                    <iframe src="https://drive.google.com/file/d/1vG3bgR4g8YNaFKkKIe2sof2FnlS3QOpS/preview" allow="autoplay"></iframe>
-                                </div>
+                            <div class="video-box drive-video-fix">
+                                <iframe src="https://drive.google.com/file/d/1WU8TYiidohWqrIU2Xw6LuHgRriILGL0V/preview" allow="autoplay"></iframe>
                             </div>
                             <div style="margin-top: 15px; text-align: center;">
                                 <h5 style="color: var(--accent-blue); margin-bottom: 5px;">Awareness</h5>
@@ -529,10 +515,8 @@
                             </div>
                         </div>
                         <div>
-                            <div class="video-box">
-                                <div class="drive-video-wrapper">
-                                    <iframe src="https://drive.google.com/file/d/1FHPPFz-Hrt0_zJID-Xs6sgYrnrRna1SV/preview" allow="autoplay"></iframe>
-                                </div>
+                            <div class="video-box drive-video-fix">
+                                <iframe src="https://drive.google.com/file/d/1vG3bgR4g8YNaFKkKIe2sof2FnlS3QOpS/preview" allow="autoplay"></iframe>
                             </div>
                             <div style="margin-top: 15px; text-align: center;">
                                 <h5 style="color: var(--accent-blue); margin-bottom: 5px;">Consideración</h5>
@@ -541,10 +525,8 @@
                             </div>
                         </div>
                         <div>
-                            <div class="video-box">
-                                <div class="drive-video-wrapper">
-                                    <iframe src="https://drive.google.com/file/d/1WU8TYiidohWqrIU2Xw6LuHgRriILGL0V/preview" allow="autoplay"></iframe>
-                                </div>
+                            <div class="video-box drive-video-fix">
+                                <iframe src="https://drive.google.com/file/d/1FHPPFz-Hrt0_zJID-Xs6sgYrnrRna1SV/preview" allow="autoplay"></iframe>
                             </div>
                             <div style="margin-top: 15px; text-align: center;">
                                 <h5 style="color: var(--accent-blue); margin-bottom: 5px;">Conversión</h5>
@@ -625,15 +607,16 @@
                     
                     <!-- Columna Visual Derecha -->
                     <div>
+                        <h4 style="margin-bottom: 20px; color: white; font-size: 18px;">Video de mayor rendimiento</h4>
                         <!-- 1. Video Viral (IFRAME DRIVE) -->
                         <div class="video-box" style="width: 100%; aspect-ratio: 9/16; margin: 0 auto 15px auto; max-width: 280px;">
-                             <div class="drive-video-wrapper">
-                                <iframe src="https://drive.google.com/file/d/1luDzespT5FqTGLZQyadpZ_NXDMJzplmL/preview" allow="autoplay"></iframe>
+                             <div class="drive-video-fix">
+                                 <iframe src="https://drive.google.com/file/d/1luDzespT5FqTGLZQyadpZ_NXDMJzplmL/preview" allow="autoplay"></iframe>
                              </div>
                         </div>
                         <!-- Métricas del Video Viral -->
                         <div style="margin-top: 0; text-align: center; background: rgba(255,255,255,0.03); padding: 15px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); max-width: 280px; margin-left: auto; margin-right: auto;">
-                            <p style="color: white; font-weight: 600; font-size: 14px; margin-bottom: 12px; letter-spacing: 0.5px;">Video de mayor rendimiento</p>
+                            <p style="color: white; font-weight: 600; font-size: 14px; margin-bottom: 12px; letter-spacing: 0.5px;">Estadísticas Clave</p>
                             <div style="display: flex; justify-content: space-between; font-size: 13px; color: #cbd5e1;">
                                 <div style="display: flex; flex-direction: column; align-items: center; gap: 5px;">
                                     <i class="fa-solid fa-eye" style="color: var(--accent-blue); font-size: 16px;"></i><span>3.2 mill</span>
@@ -661,23 +644,74 @@
         <article class="project-card">
             <div class="project-header">
                 <div class="project-title">
-                    <span>Content Marketing</span>
+                    <span>Community Manager</span>
                     <h3>Grupo Esciem</h3>
                 </div>
             </div>
             <div class="project-body">
                 <div class="grid-2">
                     <div>
-                        <h4 style="margin-bottom: 20px; font-size: 18px;">Resultados Solarelc</h4>
-                        <p style="margin-bottom: 25px; color: #d1d5db; font-size: 15px;">Implementación de guiones estratégicos para la campaña educativa y comercial, optimizando la retención de audiencia.</p>
+                        <p style="margin-bottom: 25px; color: #d1d5db; font-size: 15px;">Planificación de grillas de contenido y gestión de múltiples marcas, con enfoque en crecimiento orgánico.</p>
                         <div style="background: rgba(59, 130, 246, 0.05); padding: 25px; border-radius: 12px; border: 1px solid rgba(59, 130, 246, 0.1);">
                             <h5 style="color: var(--accent-blue); margin-bottom: 10px; font-size: 14px; text-transform: uppercase; letter-spacing: 1px;">Enfoque de Guionización</h5>
-                            <p style="font-size: 16px; font-style: italic; color: white;">"Hook (Gancho) + Value (Valor) + CTA (Llamada a la acción)"</p>
+                            <p style="font-size: 16px; font-style: italic; color: white;">"Hook + Promesa + Valor + CTA"</p>
                         </div>
                     </div>
                     <div>
-                         <div style="background: #111827; border-radius: 12px; height: 200px; display: flex; align-items: center; justify-content: center; border: 1px dashed #374151;">
-                            <p style="color: var(--text-secondary); font-size: 14px;"><i class="fa-regular fa-file-image" style="margin-right: 8px;"></i> Capturas de Guiones</p>
+                         <!-- Carrusel de Grillas -->
+                         <div class="marquee-container">
+                            <div class="marquee-content">
+                                <!-- Elementos Originales (5) -->
+                                <div class="grid-item"><img src="grilla-1.png" alt="Grilla 1"></div>
+                                <div class="grid-item"><img src="grilla-2.png" alt="Grilla 2"></div>
+                                <div class="grid-item"><img src="grilla-3.png" alt="Grilla 3"></div>
+                                <div class="grid-item"><img src="grilla-4.png" alt="Grilla 4"></div>
+                                <div class="grid-item"><img src="grilla-5.png" alt="Grilla 5"></div>
+                                <!-- Elementos Duplicados para bucle continuo -->
+                                <div class="grid-item"><img src="grilla-1.png" alt="Grilla 1"></div>
+                                <div class="grid-item"><img src="grilla-2.png" alt="Grilla 2"></div>
+                                <div class="grid-item"><img src="grilla-3.png" alt="Grilla 3"></div>
+                                <div class="grid-item"><img src="grilla-4.png" alt="Grilla 4"></div>
+                                <div class="grid-item"><img src="grilla-5.png" alt="Grilla 5"></div>
+                            </div>
+                        </div>
+                         
+                         <!-- Sección de Sectores -->
+                         <div style="margin-top: 30px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 20px;">
+                            <div style="margin-bottom: 20px;">
+                                <h4 style="margin: 0; font-size: 18px;">Gestión de <span style="color: var(--success);">+20 cuentas</span> en <span style="color: var(--success);">+10 industrias</span></h4>
+                            </div>
+                            
+                            <div class="marquee-container">
+                                <div class="sectors-marquee-content">
+                                    <!-- Originales (Actualizados) -->
+                                    <div class="sector-badge"><i class="fa-solid fa-truck-fast"></i> Transporte y logística</div>
+                                    <div class="sector-badge"><i class="fa-solid fa-wheat-awn"></i> Agroindustria</div>
+                                    <div class="sector-badge"><i class="fa-solid fa-shop"></i> Retail</div>
+                                    <div class="sector-badge"><i class="fa-solid fa-utensils"></i> Gastronomía</div>
+                                    <div class="sector-badge"><i class="fa-solid fa-building"></i> Inmobiliario</div>
+                                    <div class="sector-badge"><i class="fa-solid fa-heart-pulse"></i> Salud</div>
+                                    <div class="sector-badge"><i class="fa-solid fa-graduation-cap"></i> Educación</div>
+                                    <div class="sector-badge"><i class="fa-solid fa-laptop-code"></i> Tecnología</div>
+                                    <div class="sector-badge"><i class="fa-solid fa-spa"></i> Belleza y cuidado personal</div>
+                                    <div class="sector-badge"><i class="fa-solid fa-solar-panel"></i> Energías renovables</div>
+                                    <div class="sector-badge"><i class="fa-solid fa-car"></i> Automotriz</div>
+                                    <div class="sector-badge"><i class="fa-solid fa-shirt"></i> Merch corporativo</div>
+                                    <!-- Duplicados -->
+                                    <div class="sector-badge"><i class="fa-solid fa-truck-fast"></i> Transporte y logística</div>
+                                    <div class="sector-badge"><i class="fa-solid fa-wheat-awn"></i> Agroindustria</div>
+                                    <div class="sector-badge"><i class="fa-solid fa-shop"></i> Retail</div>
+                                    <div class="sector-badge"><i class="fa-solid fa-utensils"></i> Gastronomía</div>
+                                    <div class="sector-badge"><i class="fa-solid fa-building"></i> Inmobiliario</div>
+                                    <div class="sector-badge"><i class="fa-solid fa-heart-pulse"></i> Salud</div>
+                                    <div class="sector-badge"><i class="fa-solid fa-graduation-cap"></i> Educación</div>
+                                    <div class="sector-badge"><i class="fa-solid fa-laptop-code"></i> Tecnología</div>
+                                    <div class="sector-badge"><i class="fa-solid fa-spa"></i> Belleza y cuidado personal</div>
+                                    <div class="sector-badge"><i class="fa-solid fa-solar-panel"></i> Energías renovables</div>
+                                    <div class="sector-badge"><i class="fa-solid fa-car"></i> Automotriz</div>
+                                    <div class="sector-badge"><i class="fa-solid fa-shirt"></i> Merch corporativo</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
