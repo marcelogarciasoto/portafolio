@@ -287,6 +287,14 @@
         .video-box iframe { width: 100%; height: 100%; border: none; }
         .drive-video-fix iframe { width: 100%; height: 100%; transform: scale(1.05); transform-origin: center; }
         
+        /* CORRECCIÓN VIDEO CAD: Aumentar zoom para quitar bordes negros */
+        .cad-video-fix iframe {
+            width: 100%;
+            height: 100%;
+            transform: scale(1.20); /* Aumentado de 1.05 a 1.20 */
+            transform-origin: center;
+        }
+
         /* Video apaisado para modales (16:9) */
         .video-box.landscape { 
             aspect-ratio: 16 / 9; 
@@ -571,12 +579,13 @@
                     </div>
                     
                     <div>
-                        <h4 style="margin-bottom: 20px; color: white; font-size: 18px;">Video de mayor rendimiento</h4>
+                        <!-- 1. Video Viral (IFRAME DRIVE) -->
                         <div class="video-box" style="width: 100%; aspect-ratio: 9/16; margin: 0 auto 15px auto; max-width: 280px;">
                              <div class="cad-video-fix">
                                  <iframe src="https://drive.google.com/file/d/1luDzespT5FqTGLZQyadpZ_NXDMJzplmL/preview" allow="autoplay"></iframe>
                              </div>
                         </div>
+                        <!-- Métricas del Video Viral -->
                         <div style="margin-top: 0; text-align: center; background: rgba(255,255,255,0.03); padding: 15px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); max-width: 280px; margin-left: auto; margin-right: auto;">
                             <p style="color: white; font-weight: 600; font-size: 14px; margin-bottom: 12px; letter-spacing: 0.5px;">Estadísticas Clave</p>
                             <div style="display: flex; justify-content: space-between; font-size: 13px; color: #cbd5e1;">
@@ -585,6 +594,7 @@
                                 <div style="display: flex; flex-direction: column; align-items: center; gap: 5px;"><i class="fa-solid fa-user-plus" style="color: var(--success); font-size: 16px;"></i><span>+6000</span></div>
                             </div>
                         </div>
+                        <!-- 2. Logo Animado -->
                         <div class="cad-logo-circle">
                             <img src="cad-logo-pos.jpg" class="logo-pos" alt="Logo Positivo">
                             <img src="cad-logo-neg.jpg" class="logo-neg" alt="Logo Negativo">
@@ -605,6 +615,8 @@
                 </div>
             </div>
             <div class="project-body">
+                
+                <!-- Sección superior (Guiones + Grillas) -->
                 <div class="grid-2">
                     <div>
                         <p style="margin-bottom: 25px; color: #d1d5db; font-size: 15px;">Planificación de grillas de contenido y gestión de múltiples marcas, con enfoque en crecimiento orgánico.</p>
@@ -629,46 +641,49 @@
                                 <div class="grid-item"><img src="grilla-5.png" alt="Grilla 5"></div>
                             </div>
                         </div>
-                         
-                         <div style="margin-top: 30px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 20px;">
-                            <div style="margin-bottom: 20px;">
-                                <h4 style="margin: 0; font-size: 18px;">Gestión de <span style="color: var(--success);">+20 cuentas</span> en <span style="color: var(--success);">+10 industrias</span></h4>
-                            </div>
-                            
-                            <div class="marquee-container">
-                                <div class="sectors-marquee-content">
-                                    <div class="sector-badge"><i class="fa-solid fa-truck-fast"></i> Transporte y logística</div>
-                                    <div class="sector-badge"><i class="fa-solid fa-wheat-awn"></i> Agroindustria</div>
-                                    <div class="sector-badge"><i class="fa-solid fa-shop"></i> Retail</div>
-                                    <div class="sector-badge"><i class="fa-solid fa-utensils"></i> Gastronomía</div>
-                                    <div class="sector-badge"><i class="fa-solid fa-building"></i> Inmobiliario</div>
-                                    <div class="sector-badge"><i class="fa-solid fa-heart-pulse"></i> Salud</div>
-                                    <div class="sector-badge"><i class="fa-solid fa-graduation-cap"></i> Educación</div>
-                                    <div class="sector-badge"><i class="fa-solid fa-laptop-code"></i> Tecnología</div>
-                                    <div class="sector-badge"><i class="fa-solid fa-spa"></i> Belleza y cuidado personal</div>
-                                    <div class="sector-badge"><i class="fa-solid fa-solar-panel"></i> Energías renovables</div>
-                                    <div class="sector-badge"><i class="fa-solid fa-car"></i> Automotriz</div>
-                                    <div class="sector-badge"><i class="fa-solid fa-shirt"></i> Merch corporativo</div>
-                                    <div class="sector-badge"><i class="fa-solid fa-scale-balanced"></i> Consultoría legal</div>
-                                    <!-- Duplicados -->
-                                    <div class="sector-badge"><i class="fa-solid fa-truck-fast"></i> Transporte y logística</div>
-                                    <div class="sector-badge"><i class="fa-solid fa-wheat-awn"></i> Agroindustria</div>
-                                    <div class="sector-badge"><i class="fa-solid fa-shop"></i> Retail</div>
-                                    <div class="sector-badge"><i class="fa-solid fa-utensils"></i> Gastronomía</div>
-                                    <div class="sector-badge"><i class="fa-solid fa-building"></i> Inmobiliario</div>
-                                    <div class="sector-badge"><i class="fa-solid fa-heart-pulse"></i> Salud</div>
-                                    <div class="sector-badge"><i class="fa-solid fa-graduation-cap"></i> Educación</div>
-                                    <div class="sector-badge"><i class="fa-solid fa-laptop-code"></i> Tecnología</div>
-                                    <div class="sector-badge"><i class="fa-solid fa-spa"></i> Belleza y cuidado personal</div>
-                                    <div class="sector-badge"><i class="fa-solid fa-solar-panel"></i> Energías renovables</div>
-                                    <div class="sector-badge"><i class="fa-solid fa-car"></i> Automotriz</div>
-                                    <div class="sector-badge"><i class="fa-solid fa-shirt"></i> Merch corporativo</div>
-                                    <div class="sector-badge"><i class="fa-solid fa-scale-balanced"></i> Consultoría legal</div>
-                                </div>
-                            </div>
+                    </div>
+                </div>
+
+                <!-- Sección Inferior (Sectores Full Width) -->
+                <div style="margin-top: 30px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 20px;">
+                    <div style="margin-bottom: 20px;">
+                        <h4 style="margin: 0; font-size: 18px;">Gestión de <span style="color: var(--success);">+20 cuentas</span> en <span style="color: var(--success);">+10 industrias</span></h4>
+                    </div>
+                    
+                    <div class="marquee-container">
+                        <div class="sectors-marquee-content">
+                            <!-- Originales -->
+                            <div class="sector-badge"><i class="fa-solid fa-truck-fast"></i> Transporte y logística</div>
+                            <div class="sector-badge"><i class="fa-solid fa-wheat-awn"></i> Agroindustria</div>
+                            <div class="sector-badge"><i class="fa-solid fa-shop"></i> Retail</div>
+                            <div class="sector-badge"><i class="fa-solid fa-utensils"></i> Gastronomía</div>
+                            <div class="sector-badge"><i class="fa-solid fa-building"></i> Inmobiliario</div>
+                            <div class="sector-badge"><i class="fa-solid fa-heart-pulse"></i> Salud</div>
+                            <div class="sector-badge"><i class="fa-solid fa-graduation-cap"></i> Educación</div>
+                            <div class="sector-badge"><i class="fa-solid fa-laptop-code"></i> Tecnología</div>
+                            <div class="sector-badge"><i class="fa-solid fa-spa"></i> Belleza y cuidado personal</div>
+                            <div class="sector-badge"><i class="fa-solid fa-solar-panel"></i> Energías renovables</div>
+                            <div class="sector-badge"><i class="fa-solid fa-car"></i> Automotriz</div>
+                            <div class="sector-badge"><i class="fa-solid fa-shirt"></i> Merch corporativo</div>
+                            <div class="sector-badge"><i class="fa-solid fa-scale-balanced"></i> Consultoría legal</div>
+                            <!-- Duplicados -->
+                            <div class="sector-badge"><i class="fa-solid fa-truck-fast"></i> Transporte y logística</div>
+                            <div class="sector-badge"><i class="fa-solid fa-wheat-awn"></i> Agroindustria</div>
+                            <div class="sector-badge"><i class="fa-solid fa-shop"></i> Retail</div>
+                            <div class="sector-badge"><i class="fa-solid fa-utensils"></i> Gastronomía</div>
+                            <div class="sector-badge"><i class="fa-solid fa-building"></i> Inmobiliario</div>
+                            <div class="sector-badge"><i class="fa-solid fa-heart-pulse"></i> Salud</div>
+                            <div class="sector-badge"><i class="fa-solid fa-graduation-cap"></i> Educación</div>
+                            <div class="sector-badge"><i class="fa-solid fa-laptop-code"></i> Tecnología</div>
+                            <div class="sector-badge"><i class="fa-solid fa-spa"></i> Belleza y cuidado personal</div>
+                            <div class="sector-badge"><i class="fa-solid fa-solar-panel"></i> Energías renovables</div>
+                            <div class="sector-badge"><i class="fa-solid fa-car"></i> Automotriz</div>
+                            <div class="sector-badge"><i class="fa-solid fa-shirt"></i> Merch corporativo</div>
+                            <div class="sector-badge"><i class="fa-solid fa-scale-balanced"></i> Consultoría legal</div>
                         </div>
                     </div>
                 </div>
+
             </div>
         </article>
 
@@ -727,7 +742,7 @@
         <!-- Entel Content (Carousel) -->
         <div id="content-entel">
             <h3>Entel: Activa tu chispa</h3>
-            <p class="modal-description">Campaña corporativa interna orientada a fortalecer el pilar “Cambia el Mundo”. Bajo el concepto “Chispa de Transformación”, se pone en valor la innovación de cada colaborador y el uso de la tecnología como motor para resolver problemáticas del día a día.</p>
+            <p class="modal-description">Campaña corporativa interna enfocada a reforzar el pilar interno "Cambia el Mundo" bajo el concepto "Chispa de Transformación" que nace de la innovación de cada colaborador emplea la tecnología.</p>
             <div class="modal-carousel">
                 <div class="carousel-item active">
                      <h5 style="text-align:center; color:var(--accent-blue); margin-bottom:10px;">Video Corporativo</h5>
@@ -759,7 +774,7 @@
         <!-- Cedro Content (Carousel) -->
         <div id="content-cedro">
             <h3>Cedro: El Amigo Secreto</h3>
-            <p class="modal-description">Campaña para la ONG CEDRO enfocada en promocionar su servicio “Lugar de Escucha”, un espacio de acompañamiento para el tratamiento de adicciones. La campaña conceptualiza a la adicción como un “Amigo Secreto”: silencioso, constante y siempre presente.</p>
+            <p class="modal-description">Campaña para la ONG Cedro promocionando su servicio "Lugar de Escucha" ofreciendo un espacio para tratar las adicciones. Se conceptualizó al "Amigo Secreto" como la adicción, silencioso y siempre presente.</p>
             <div class="modal-carousel">
                 <div class="carousel-item active">
                     <h5 style="text-align:center; color:var(--accent-blue); margin-bottom:10px;">Video de Campaña</h5>
