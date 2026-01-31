@@ -52,11 +52,12 @@
 
         .section-padding { padding: 80px 0; }
         
+        /* Grid simétrico que estira las columnas a la misma altura */
         .grid-2 { 
             display: grid; 
             grid-template-columns: 1fr 1fr; 
             gap: 40px; 
-            align-items: stretch; /* Asegura que ambas columnas tengan la misma altura */
+            align-items: stretch; 
         }
         .grid-2 > div { min-width: 0; }
 
@@ -287,26 +288,36 @@
             width: 100%;
         }
         .video-box iframe { width: 100%; height: 100%; border: none; }
-        .drive-video-fix iframe { width: 100%; height: 100%; transform: scale(1.0); transform-origin: center; }
+        .drive-video-fix iframe { width: 100%; height: 100%; transform: scale(1.05); transform-origin: center; }
         
-        /* CORRECCIÓN VIDEO CAD: Estirar para llenar columna derecha */
+        /* CORRECCIÓN VIDEO CAD: Estirar para llenar columna derecha SIMÉTRICA */
         .cad-col-right {
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             height: 100%;
         }
-        .video-box-cad-full {
+        
+        .video-box-cad-elastic {
+            flex-grow: 1; /* Ocupa todo el espacio vertical disponible */
             width: 100%;
-            flex-grow: 1; /* Ocupa todo el espacio restante */
-            min-height: 400px; /* Altura mínima segura */
-            aspect-ratio: auto; /* Permite estirarse */
+            position: relative;
+            overflow: hidden;
+            background: #000;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 20px;
+            /* No forzamos aspect-ratio aquí para que se estire */
         }
-        .cad-video-fix iframe {
+
+        .video-box-cad-elastic iframe {
+            position: absolute;
+            top: 50%;
+            left: 50%;
             width: 100%;
             height: 100%;
-            transform: scale(1.1);
-            transform-origin: center;
+            transform: translate(-50%, -50%) scale(1.02); /* Zoom suave para bordes */
+            object-fit: cover;
         }
 
         /* Video apaisado para modales (16:9) */
@@ -316,7 +327,7 @@
         }
 
         /* --- COLLAGE GUIONES --- */
-        .script-collage { position: relative; height: 280px; width: 100%; margin-top: 10px; margin-bottom: 30px; display: flex; justify-content: center; align-items: center; perspective: 1000px; }
+        .script-collage { position: relative; height: 280px; width: 100%; margin-top: 10px; margin-bottom: 40px; display: flex; justify-content: center; align-items: center; perspective: 1000px; }
         .script-card { position: absolute; width: 160px; height: 220px; background: #ffffff; border-radius: 8px; box-shadow: 0 10px 20px rgba(0,0,0,0.3); transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1); cursor: pointer; overflow: hidden; border: 1px solid rgba(255,255,255,0.2); transform-origin: bottom center; }
         .script-card img { width: 100%; height: 100%; object-fit: cover; object-position: top; transition: 0.5s; }
         .script-card:nth-child(1) { transform: rotate(-6deg) translateX(-15px) scale(0.95); z-index: 1; opacity: 0.8; }
@@ -416,9 +427,11 @@
                 flex-direction: column;
                 height: 100%;
             }
-            .video-box-cad-full {
+            .video-box-cad-elastic {
                 width: 100%;
                 height: 500px; /* Altura fija en móvil para asegurar formato vertical */
+                /* En móvil no queremos que sea 'flex' sino una altura fija considerable */
+                flex-grow: 0; 
                 aspect-ratio: 9/16;
             }
         }
@@ -565,8 +578,8 @@
             </div>
             <div class="project-body">
                 <div class="grid-2">
-                    <!-- Columna Izquierda: Estrategia y Logo -->
-                    <div>
+                    <!-- Columna Izquierda: Métricas, Guiones y Logo -->
+                    <div style="display: flex; flex-direction: column; height: 100%;">
                         <h4 style="margin-bottom: 25px; color: white; font-size: 18px;">Resultados en 2 Meses</h4>
                         <div class="metrics-grid">
                             <div class="metric-box"><span class="metric-number">+11.5K</span><span class="metric-label">Seguidores TikTok</span></div>
@@ -586,7 +599,7 @@
                         </div>
 
                         <!-- Logo Animado -->
-                        <div style="margin-top: 40px; text-align: center;">
+                        <div style="margin-top: 30px; text-align: center; margin-bottom: 20px;">
                             <div class="cad-logo-circle">
                                 <img src="cad-logo-pos.jpg" class="logo-pos" alt="Logo Positivo">
                                 <img src="cad-logo-neg.jpg" class="logo-neg" alt="Logo Negativo">
@@ -596,15 +609,15 @@
                     </div>
                     
                     <!-- Columna Derecha: Video Full Height -->
-                    <div class="cad-col-right" style="display: flex; flex-direction: column; justify-content: flex-start; height: 100%;">
-                        <!-- Video Viral (Full Height & Width) -->
-                        <div class="video-box video-box-cad-full" style="width: 100%; flex-grow: 1; min-height: 500px; aspect-ratio: 9/16; margin-bottom: 20px;">
+                    <div class="cad-col-right">
+                        <!-- Video Viral (Full Height Elástico) -->
+                        <div class="video-box-cad-elastic">
                              <div class="cad-video-fix">
                                  <iframe src="https://drive.google.com/file/d/1luDzespT5FqTGLZQyadpZ_NXDMJzplmL/preview" allow="autoplay; fullscreen; picture-in-picture"></iframe>
                              </div>
                         </div>
 
-                        <!-- Métricas del Video Viral (Debajo del video) -->
+                        <!-- Métricas del Video Viral -->
                         <div style="text-align: center; background: rgba(255,255,255,0.03); padding: 15px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); width: 100%;">
                             <p style="color: white; font-weight: 600; font-size: 14px; margin-bottom: 12px; letter-spacing: 0.5px;">Estadísticas Clave</p>
                             <div style="display: flex; justify-content: space-between; font-size: 13px; color: #cbd5e1;">
