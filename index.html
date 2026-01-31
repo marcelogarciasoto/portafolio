@@ -287,11 +287,11 @@
         .video-box iframe { width: 100%; height: 100%; border: none; }
         .drive-video-fix iframe { width: 100%; height: 100%; transform: scale(1.05); transform-origin: center; }
         
-        /* CORRECCIÓN VIDEO CAD: Aumentar zoom para quitar bordes negros */
+        /* CORRECCIÓN VIDEO CAD (Más grande y ajustado) */
         .cad-video-fix iframe {
             width: 100%;
             height: 100%;
-            transform: scale(1.20); /* Aumentado de 1.05 a 1.20 */
+            transform: scale(1.20); /* Zoom para quitar bordes */
             transform-origin: center;
         }
 
@@ -313,11 +313,22 @@
         .script-collage:hover .script-card:nth-child(3) { transform: rotate(15deg) translateX(100px) translateY(-10px) scale(1); z-index: 2; opacity: 1; }
         .script-card:hover { z-index: 100 !important; transform: scale(2.2) translateY(-40px) rotate(0deg) !important; box-shadow: 0 40px 80px rgba(0,0,0,0.8); border-color: var(--accent-blue); }
 
-        /* --- ESTILOS ESCIEM --- */
+        /* --- ESTILOS ESCIEM (MODIFICADO: MÁS GRANDE Y NÍTIDO) --- */
         .marquee-container { overflow: hidden; width: 100%; position: relative; mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent); }
         .marquee-content { display: flex; gap: 20px; width: max-content; animation: marquee-scroll 25s linear infinite; }
-        .grid-item { width: 180px; height: 240px; flex-shrink: 0; background: #1e293b; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); }
+        
+        /* Grillas Agrandadas para Nitidez */
+        .grid-item { 
+            width: 260px; /* Aumentado de 180px */
+            height: 400px; /* Aumentado de 240px */
+            flex-shrink: 0; 
+            background: #1e293b; 
+            border-radius: 12px; 
+            overflow: hidden; 
+            border: 1px solid rgba(255,255,255,0.1); 
+        }
         .grid-item img { width: 100%; height: 100%; object-fit: cover; }
+
         .sectors-marquee-content { display: flex; gap: 15px; width: max-content; animation: marquee-scroll 35s linear infinite; }
         .sector-badge { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 50px; padding: 10px 20px; white-space: nowrap; display: flex; align-items: center; gap: 10px; color: #cbd5e1; font-size: 13px; }
         .sector-badge i { color: var(--accent-blue); font-size: 16px; }
@@ -579,14 +590,13 @@
                     </div>
                     
                     <div>
-                        <!-- 1. Video Viral (IFRAME DRIVE) -->
-                        <div class="video-box" style="width: 100%; aspect-ratio: 9/16; margin: 0 auto 15px auto; max-width: 280px;">
+                        <h4 style="margin-bottom: 20px; color: white; font-size: 18px;">Video de mayor rendimiento</h4>
+                        <div class="video-box" style="width: 100%; aspect-ratio: 9/16; margin: 0 auto 15px auto; max-width: 340px;">
                              <div class="cad-video-fix">
                                  <iframe src="https://drive.google.com/file/d/1luDzespT5FqTGLZQyadpZ_NXDMJzplmL/preview" allow="autoplay"></iframe>
                              </div>
                         </div>
-                        <!-- Métricas del Video Viral -->
-                        <div style="margin-top: 0; text-align: center; background: rgba(255,255,255,0.03); padding: 15px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); max-width: 280px; margin-left: auto; margin-right: auto;">
+                        <div style="margin-top: 0; text-align: center; background: rgba(255,255,255,0.03); padding: 15px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); max-width: 340px; margin-left: auto; margin-right: auto;">
                             <p style="color: white; font-weight: 600; font-size: 14px; margin-bottom: 12px; letter-spacing: 0.5px;">Estadísticas Clave</p>
                             <div style="display: flex; justify-content: space-between; font-size: 13px; color: #cbd5e1;">
                                 <div style="display: flex; flex-direction: column; align-items: center; gap: 5px;"><i class="fa-solid fa-eye" style="color: var(--accent-blue); font-size: 16px;"></i><span>3.2 mill</span></div>
@@ -594,7 +604,6 @@
                                 <div style="display: flex; flex-direction: column; align-items: center; gap: 5px;"><i class="fa-solid fa-user-plus" style="color: var(--success); font-size: 16px;"></i><span>+6000</span></div>
                             </div>
                         </div>
-                        <!-- 2. Logo Animado -->
                         <div class="cad-logo-circle">
                             <img src="cad-logo-pos.jpg" class="logo-pos" alt="Logo Positivo">
                             <img src="cad-logo-neg.jpg" class="logo-neg" alt="Logo Negativo">
@@ -615,8 +624,6 @@
                 </div>
             </div>
             <div class="project-body">
-                
-                <!-- Sección superior (Guiones + Grillas) -->
                 <div class="grid-2">
                     <div>
                         <p style="margin-bottom: 25px; color: #d1d5db; font-size: 15px;">Planificación de grillas de contenido y gestión de múltiples marcas, con enfoque en crecimiento orgánico.</p>
@@ -626,7 +633,7 @@
                         </div>
                     </div>
                     <div>
-                         <h4 style="margin-bottom: 15px; color: white; font-size: 16px;">Planificación estructurada de contenido</h4>
+                         <!-- Se eliminó el título "Planificación estructurada..." -->
                          <div class="marquee-container">
                             <div class="marquee-content">
                                 <div class="grid-item"><img src="grilla-1.png" alt="Grilla 1"></div>
@@ -644,8 +651,8 @@
                     </div>
                 </div>
 
-                <!-- Sección Inferior (Sectores Full Width) -->
-                <div style="margin-top: 30px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 20px;">
+                <!-- SECCIÓN MOVIDA: Ahora ocupa todo el ancho abajo -->
+                <div style="margin-top: 40px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 30px;">
                     <div style="margin-bottom: 20px;">
                         <h4 style="margin: 0; font-size: 18px;">Gestión de <span style="color: var(--success);">+20 cuentas</span> en <span style="color: var(--success);">+10 industrias</span></h4>
                     </div>
@@ -683,7 +690,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </article>
 
@@ -774,7 +780,7 @@
         <!-- Cedro Content (Carousel) -->
         <div id="content-cedro">
             <h3>Cedro: El Amigo Secreto</h3>
-            <p class="modal-description">Campaña para la ONG Cedro promocionando su servicio "Lugar de Escucha" ofreciendo un espacio para tratar las adicciones. Se conceptualizó al "Amigo Secreto" como la adicción, silencioso y siempre presente.</p>
+            <p class="modal-description">Campaña para la ONG Cedro promocionando su servicio "Lugar de Escucha" ofreciendo un espacio para tratar las adicciones. La campaña conceptualiza a la adicción como un “Amigo Secreto”: silencioso, constante y siempre presente.</p>
             <div class="modal-carousel">
                 <div class="carousel-item active">
                     <h5 style="text-align:center; color:var(--accent-blue); margin-bottom:10px;">Video de Campaña</h5>
