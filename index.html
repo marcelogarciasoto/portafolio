@@ -28,12 +28,12 @@
             background-color: var(--bg-color);
             color: var(--text-primary);
             line-height: 1.6;
-            overflow-x: hidden; /* Evita scroll horizontal en móvil */
+            overflow-x: hidden;
             width: 100%;
             font-weight: 300;
         }
 
-        h1, h2, h3, h4 {
+        h1, h2, h3, h4, h5 {
             font-family: 'Plus Jakarta Sans', sans-serif;
             color: white;
             letter-spacing: -0.5px;
@@ -57,7 +57,6 @@
             grid-template-columns: 1fr 1fr; 
             gap: 40px; 
         }
-        /* Importante: min-width 0 evita que el grid se rompa con contenido ancho */
         .grid-2 > div { min-width: 0; }
 
         .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
@@ -88,7 +87,6 @@
             flex: 1;
         }
 
-        /* Estilos de la Foto */
         .hero-image-box {
             position: relative;
             width: 280px;
@@ -227,7 +225,7 @@
 
         .metric-label { font-size: 13px; color: var(--text-secondary); font-weight: 500; }
 
-        /* --- BEFORE/AFTER SLIDER (INTERACTIVO) --- */
+        /* --- BEFORE/AFTER SLIDER --- */
         .ba-slider {
             position: relative;
             width: 100%;
@@ -276,7 +274,7 @@
             position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: ew-resize; z-index: 30; margin: 0;
         }
 
-        /* --- VIDEO CONTAINER STYLES (DRIVE) --- */
+        /* --- VIDEO / IFRAME STYLES --- */
         .video-box {
             background: #000;
             border-radius: 12px;
@@ -286,90 +284,36 @@
             position: relative;
             width: 100%;
         }
+        .video-box iframe { width: 100%; height: 100%; border: none; }
+        .drive-video-fix iframe { width: 100%; height: 100%; transform: scale(1.05); transform-origin: center; }
         
-        .video-box iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        /* Corrección para video de CAD: Escala para llenar mejor el cuadro */
-        .cad-video-fix iframe {
-            width: 100%;
-            height: 100%;
-            transform: scale(1.1); /* Zoom ligero para eliminar bordes */
-            transform-origin: center;
+        /* Video apaisado para modales (16:9) */
+        .video-box.landscape { 
+            aspect-ratio: 16 / 9; 
+            max-width: 100%;
         }
 
         /* --- COLLAGE GUIONES --- */
         .script-collage { position: relative; height: 280px; width: 100%; margin-top: 30px; display: flex; justify-content: center; align-items: center; perspective: 1000px; }
         .script-card { position: absolute; width: 160px; height: 220px; background: #ffffff; border-radius: 8px; box-shadow: 0 10px 20px rgba(0,0,0,0.3); transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1); cursor: pointer; overflow: hidden; border: 1px solid rgba(255,255,255,0.2); transform-origin: bottom center; }
         .script-card img { width: 100%; height: 100%; object-fit: cover; object-position: top; transition: 0.5s; }
-        
-        /* Rotación inicial */
         .script-card:nth-child(1) { transform: rotate(-6deg) translateX(-15px) scale(0.95); z-index: 1; opacity: 0.8; }
         .script-card:nth-child(2) { transform: rotate(0deg) translateY(0px) scale(1); z-index: 2; }
         .script-card:nth-child(3) { transform: rotate(6deg) translateX(15px) scale(0.95); z-index: 1; opacity: 0.8; }
-
-        /* Hover contenedor */
         .script-collage:hover .script-card:nth-child(1) { transform: rotate(-15deg) translateX(-100px) translateY(-10px) scale(1); z-index: 2; opacity: 1; }
         .script-collage:hover .script-card:nth-child(2) { transform: rotate(0deg) translateY(-20px) scale(1); z-index: 3; }
         .script-collage:hover .script-card:nth-child(3) { transform: rotate(15deg) translateX(100px) translateY(-10px) scale(1); z-index: 2; opacity: 1; }
-
-        /* Hover individual */
         .script-card:hover { z-index: 100 !important; transform: scale(2.2) translateY(-40px) rotate(0deg) !important; box-shadow: 0 40px 80px rgba(0,0,0,0.8); border-color: var(--accent-blue); }
 
-        /* --- ESTILOS ESCIEM (CARRUSELES INFINITOS) --- */
-        .marquee-container {
-            overflow: hidden;
-            width: 100%;
-            position: relative;
-            mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
-        }
-
-        .marquee-content {
-            display: flex;
-            gap: 20px;
-            width: max-content;
-            animation: marquee-scroll 25s linear infinite; 
-        }
-
-        .grid-item {
-            width: 180px;
-            height: 240px;
-            flex-shrink: 0;
-            background: #1e293b;
-            border-radius: 12px;
-            overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
+        /* --- ESTILOS ESCIEM --- */
+        .marquee-container { overflow: hidden; width: 100%; position: relative; mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent); }
+        .marquee-content { display: flex; gap: 20px; width: max-content; animation: marquee-scroll 25s linear infinite; }
+        .grid-item { width: 180px; height: 240px; flex-shrink: 0; background: #1e293b; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); }
         .grid-item img { width: 100%; height: 100%; object-fit: cover; }
-
-        .sectors-marquee-content {
-            display: flex;
-            gap: 15px;
-            width: max-content;
-            animation: marquee-scroll 35s linear infinite; 
-        }
-
-        .sector-badge {
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 50px; 
-            padding: 10px 20px;
-            white-space: nowrap;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: #cbd5e1;
-            font-size: 13px;
-        }
+        .sectors-marquee-content { display: flex; gap: 15px; width: max-content; animation: marquee-scroll 35s linear infinite; }
+        .sector-badge { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 50px; padding: 10px 20px; white-space: nowrap; display: flex; align-items: center; gap: 10px; color: #cbd5e1; font-size: 13px; }
         .sector-badge i { color: var(--accent-blue); font-size: 16px; }
-
-        @keyframes marquee-scroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); } 
-        }
+        @keyframes marquee-scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
         /* --- LOGO CAD ANIM --- */
         .cad-logo-circle { width: 180px; height: 180px; border-radius: 50%; position: relative; margin: 30px auto 0; border: 2px solid white; box-shadow: 0 10px 30px rgba(0,0,0,0.3); overflow: hidden; background: white; animation: borderSwitch 6s infinite ease-in-out; }
@@ -385,14 +329,51 @@
 
         /* --- UNIVERSITY GRID --- */
         .uni-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 25px; }
-        .uni-card { background: rgba(255,255,255,0.02); padding: 30px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); transition: 0.3s; display: flex; flex-direction: column; align-items: flex-start; }
+        .uni-card { 
+            background: rgba(255,255,255,0.02); padding: 30px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); transition: 0.3s; display: flex; flex-direction: column; align-items: flex-start; cursor: pointer; position: relative;
+        }
         .uni-card:hover { background: rgba(255,255,255,0.04); transform: translateY(-5px); border-color: var(--accent-blue); }
         .uni-card i { font-size: 28px; color: var(--accent-blue); margin-bottom: 20px; }
         .uni-card h4 { font-size: 18px; margin-bottom: 8px; }
+        .uni-card .more-info {
+            position: absolute; bottom: 20px; right: 20px; opacity: 0; transition: 0.3s; color: var(--accent-blue);
+        }
+        .uni-card:hover .more-info { opacity: 1; }
+
+        /* --- MODAL Y CARRUSEL --- */
+        .modal {
+            display: none; position: fixed; z-index: 1000; left: 0; top: 0; 
+            width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.9); backdrop-filter: blur(8px);
+        }
+        .modal-content {
+            background-color: #1e293b; margin: 5% auto; padding: 40px; border: 1px solid #334155;
+            width: 80%; max-width: 900px; border-radius: 16px; position: relative; animation: slideUp 0.4s ease;
+        }
+        .close-btn { color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        .close-btn:hover { color: white; }
+        .modal-body h3 { font-size: 28px; margin-bottom: 15px; color: white; }
+        .modal-description { color: #cbd5e1; margin-bottom: 30px; font-size: 16px; line-height: 1.6; }
+        @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+        /* Estilos del Carrusel en Modal */
+        .modal-carousel { position: relative; max-width: 100%; margin: auto; }
+        .carousel-item { display: none; animation: fade 0.5s; }
+        .carousel-item.active { display: block; }
+        @keyframes fade { from {opacity: .4} to {opacity: 1} }
+
+        /* Botones de Navegación */
+        .carousel-nav-btn {
+            cursor: pointer; position: absolute; top: 50%; width: auto; padding: 16px; margin-top: -22px;
+            color: white; font-weight: bold; font-size: 24px; transition: 0.6s ease; border-radius: 0 3px 3px 0;
+            user-select: none; background-color: rgba(0,0,0,0.4); z-index: 10;
+        }
+        .carousel-nav-btn.prev { left: 0; border-radius: 3px 0 0 3px; }
+        .carousel-nav-btn.next { right: 0; border-radius: 3px 0 0 3px; }
+        .carousel-nav-btn:hover { background-color: var(--accent-blue); }
 
         footer { padding: 60px 0; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); color: var(--text-secondary); font-size: 14px; background: #080c14; }
 
-        /* Responsive Adjustments (MOBILE FIXES) */
+        /* Responsive Adjustments */
         @media (min-width: 768px) {
             .hero-container { flex-direction: row; text-align: left; justify-content: space-between; }
             .hero-content { text-align: left; }
@@ -401,10 +382,11 @@
         }
         @media (max-width: 768px) {
             .grid-2 { grid-template-columns: 1fr; }
-            .project-header { flex-direction: column; align-items: flex-start; padding: 25px; } /* Menos padding en cabecera */
-            .project-body { padding: 20px; } /* Menos padding en cuerpo */
+            .project-header { flex-direction: column; align-items: flex-start; padding: 25px; }
+            .project-body { padding: 20px; }
             .hero-content { padding: 0 10px; }
-            .hero h1 { font-size: 32px; } /* Título más pequeño en móvil */
+            .hero h1 { font-size: 32px; }
+            .modal-content { width: 95%; margin: 10% auto; padding: 20px; }
         }
     </style>
 </head>
@@ -448,12 +430,8 @@
                         <span class="contact-item" style="font-size: 12px; padding: 6px 12px;"><i class="fa-solid fa-arrow-trend-up"></i> Organic Growth</span>
                     </div>
                     <div style="display: flex; gap: 10px; border-left: 1px solid rgba(255,255,255,0.1); padding-left: 15px;">
-                        <a href="https://www.instagram.com/disenando_detalles/" target="_blank" class="social-icon-btn" title="Instagram">
-                            <i class="fa-brands fa-instagram"></i>
-                        </a>
-                        <a href="https://www.tiktok.com/@disenando_detalles" target="_blank" class="social-icon-btn" title="TikTok">
-                            <i class="fa-brands fa-tiktok"></i>
-                        </a>
+                        <a href="https://www.instagram.com/disenando_detalles/" target="_blank" class="social-icon-btn" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://www.tiktok.com/@disenando_detalles" target="_blank" class="social-icon-btn" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
                     </div>
                 </div>
             </div>
@@ -475,7 +453,6 @@
                     </div>
                     <div>
                         <h4 style="margin-bottom: 25px; color: white; font-size: 18px;">Restyling de Identidad Corporativa</h4>
-                        <!-- COMPARACIÓN INTERACTIVA (SLIDER) -->
                         <div class="ba-slider" id="ba-slider">
                             <div class="ba-layer-before">
                                 <span class="ba-label ba-label-before">Identidad Anterior</span>
@@ -496,12 +473,11 @@
                     Impacto total: Generación de un incremento del 30% en ventas globales.
                 </p>
 
-                <!-- Videos Diseñando Detalles -->
                 <div style="margin-top: 50px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 30px;">
                     <h4 style="margin-bottom: 30px; color: white; font-size: 20px; text-align: center;">Contenido para las 3 etapas del funnel</h4>
                     <div class="grid-3">
                         <div>
-                            <div class="video-box">
+                            <div class="video-box drive-video-fix">
                                 <iframe src="https://drive.google.com/file/d/1vG3bgR4g8YNaFKkKIe2sof2FnlS3QOpS/preview" allow="autoplay"></iframe>
                             </div>
                             <div style="margin-top: 15px; text-align: center;">
@@ -511,7 +487,7 @@
                             </div>
                         </div>
                         <div>
-                            <div class="video-box">
+                            <div class="video-box drive-video-fix">
                                 <iframe src="https://drive.google.com/file/d/1FHPPFz-Hrt0_zJID-Xs6sgYrnrRna1SV/preview" allow="autoplay"></iframe>
                             </div>
                             <div style="margin-top: 15px; text-align: center;">
@@ -521,7 +497,7 @@
                             </div>
                         </div>
                         <div>
-                            <div class="video-box">
+                            <div class="video-box drive-video-fix">
                                 <iframe src="https://drive.google.com/file/d/1WU8TYiidohWqrIU2Xw6LuHgRriILGL0V/preview" allow="autoplay"></iframe>
                             </div>
                             <div style="margin-top: 15px; text-align: center;">
@@ -582,53 +558,36 @@
                                 </li>
                             </ul>
                         </div>
-                        <!-- COLLAGE INTERACTIVO DE GUIONES -->
                         <div style="margin-top: 40px; text-align: center;">
                             <p style="font-size: 14px; color: var(--text-secondary); margin-bottom: 10px; letter-spacing: 1px; text-transform: uppercase;">
                                 <i class="fa-solid fa-hand-pointer" style="margin-right: 5px;"></i> Guiones estratégicos y estructurados
                             </p>
                             <div class="script-collage">
-                                <div class="script-card">
-                                    <img src="guion-cad-1.png" alt="Guion Estratégico 1" onerror="this.src='https://via.placeholder.com/300x400?text=Guion+1'">
-                                </div>
-                                <div class="script-card">
-                                    <img src="guion-cad-2.png" alt="Guion Estratégico 2" onerror="this.src='https://via.placeholder.com/300x400?text=Guion+2'">
-                                </div>
-                                <div class="script-card">
-                                    <img src="guion-cad-3.png" alt="Guion Estratégico 3" onerror="this.src='https://via.placeholder.com/300x400?text=Guion+3'">
-                                </div>
+                                <div class="script-card"><img src="guion-cad-1.png" alt="Guion 1"></div>
+                                <div class="script-card"><img src="guion-cad-2.png" alt="Guion 2"></div>
+                                <div class="script-card"><img src="guion-cad-3.png" alt="Guion 3"></div>
                             </div>
                         </div>
                     </div>
                     
-                    <!-- Columna Visual Derecha -->
                     <div>
                         <h4 style="margin-bottom: 20px; color: white; font-size: 18px;">Video de mayor rendimiento</h4>
-                        <!-- 1. Video Viral (CAD - DRIVE) -->
                         <div class="video-box" style="width: 100%; aspect-ratio: 9/16; margin: 0 auto 15px auto; max-width: 280px;">
                              <div class="cad-video-fix">
                                  <iframe src="https://drive.google.com/file/d/1luDzespT5FqTGLZQyadpZ_NXDMJzplmL/preview" allow="autoplay"></iframe>
                              </div>
                         </div>
-                        <!-- Métricas del Video Viral -->
                         <div style="margin-top: 0; text-align: center; background: rgba(255,255,255,0.03); padding: 15px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); max-width: 280px; margin-left: auto; margin-right: auto;">
                             <p style="color: white; font-weight: 600; font-size: 14px; margin-bottom: 12px; letter-spacing: 0.5px;">Estadísticas Clave</p>
                             <div style="display: flex; justify-content: space-between; font-size: 13px; color: #cbd5e1;">
-                                <div style="display: flex; flex-direction: column; align-items: center; gap: 5px;">
-                                    <i class="fa-solid fa-eye" style="color: var(--accent-blue); font-size: 16px;"></i><span>3.2 mill</span>
-                                </div>
-                                <div style="display: flex; flex-direction: column; align-items: center; gap: 5px;">
-                                    <i class="fa-solid fa-comment" style="color: var(--accent-blue); font-size: 16px;"></i><span>31 k</span>
-                                </div>
-                                <div style="display: flex; flex-direction: column; align-items: center; gap: 5px;">
-                                    <i class="fa-solid fa-user-plus" style="color: var(--success); font-size: 16px;"></i><span>+6000</span>
-                                </div>
+                                <div style="display: flex; flex-direction: column; align-items: center; gap: 5px;"><i class="fa-solid fa-eye" style="color: var(--accent-blue); font-size: 16px;"></i><span>3.2 mill</span></div>
+                                <div style="display: flex; flex-direction: column; align-items: center; gap: 5px;"><i class="fa-solid fa-comment" style="color: var(--accent-blue); font-size: 16px;"></i><span>31 k</span></div>
+                                <div style="display: flex; flex-direction: column; align-items: center; gap: 5px;"><i class="fa-solid fa-user-plus" style="color: var(--success); font-size: 16px;"></i><span>+6000</span></div>
                             </div>
                         </div>
-                        <!-- 2. Logo Animado -->
                         <div class="cad-logo-circle">
-                            <img src="cad-logo-pos.jpg" class="logo-pos" alt="Logo Positivo" onerror="this.src='https://via.placeholder.com/150?text=Positivo'">
-                            <img src="cad-logo-neg.jpg" class="logo-neg" alt="Logo Negativo" onerror="this.src='https://via.placeholder.com/150?text=Negativo'">
+                            <img src="cad-logo-pos.jpg" class="logo-pos" alt="Logo Positivo">
+                            <img src="cad-logo-neg.jpg" class="logo-neg" alt="Logo Negativo">
                         </div>
                         <p style="text-align: center; font-size: 12px; color: var(--text-secondary); margin-top: 10px;">Identidad gráfica (positivo / negativo)</p>
                     </div>
@@ -656,16 +615,13 @@
                     </div>
                     <div>
                          <h4 style="margin-bottom: 15px; color: white; font-size: 16px;">Planificación estructurada de contenido</h4>
-                         <!-- Carrusel de Grillas -->
                          <div class="marquee-container">
                             <div class="marquee-content">
-                                <!-- Elementos Originales (5) -->
                                 <div class="grid-item"><img src="grilla-1.png" alt="Grilla 1"></div>
                                 <div class="grid-item"><img src="grilla-2.png" alt="Grilla 2"></div>
                                 <div class="grid-item"><img src="grilla-3.png" alt="Grilla 3"></div>
                                 <div class="grid-item"><img src="grilla-4.png" alt="Grilla 4"></div>
                                 <div class="grid-item"><img src="grilla-5.png" alt="Grilla 5"></div>
-                                <!-- Elementos Duplicados para bucle continuo -->
                                 <div class="grid-item"><img src="grilla-1.png" alt="Grilla 1"></div>
                                 <div class="grid-item"><img src="grilla-2.png" alt="Grilla 2"></div>
                                 <div class="grid-item"><img src="grilla-3.png" alt="Grilla 3"></div>
@@ -674,7 +630,6 @@
                             </div>
                         </div>
                          
-                         <!-- Sección de Sectores -->
                          <div style="margin-top: 30px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 20px;">
                             <div style="margin-bottom: 20px;">
                                 <h4 style="margin: 0; font-size: 18px;">Gestión de <span style="color: var(--success);">+20 cuentas</span> en <span style="color: var(--success);">+10 industrias</span></h4>
@@ -682,7 +637,6 @@
                             
                             <div class="marquee-container">
                                 <div class="sectors-marquee-content">
-                                    <!-- Originales (Actualizados) -->
                                     <div class="sector-badge"><i class="fa-solid fa-truck-fast"></i> Transporte y logística</div>
                                     <div class="sector-badge"><i class="fa-solid fa-wheat-awn"></i> Agroindustria</div>
                                     <div class="sector-badge"><i class="fa-solid fa-shop"></i> Retail</div>
@@ -718,24 +672,32 @@
             </div>
         </article>
 
-        <!-- SECCIÓN UNIVERSIDAD -->
+        <!-- SECCIÓN UNIVERSIDAD (Interactivo) -->
         <h2 style="margin-bottom: 30px; margin-top: 80px; font-size: 28px; border-left: 4px solid var(--accent-blue); padding-left: 20px;">Trabajos Universitarios</h2>
         <div class="uni-grid">
-            <div class="uni-card">
-                <i class="fa-solid fa-mobile-screen"></i><h4>Entel</h4>
-                <p style="font-size: 13px; color: var(--text-secondary); margin-top: 5px; line-height: 1.5;">Comercial TV + Estrategia de PR + Pieza Radial</p>
+            <div class="uni-card" onclick="openModal('entel')">
+                <i class="fa-solid fa-mobile-screen"></i>
+                <h4>Entel: Activa tu chispa</h4>
+                <p style="font-size: 13px; color: var(--text-secondary); margin-top: 5px;">Campaña corporativa interna.</p>
+                <i class="fa-solid fa-circle-plus more-info" style="font-size: 20px;"></i>
             </div>
-            <div class="uni-card">
-                <i class="fa-solid fa-hand-holding-heart"></i><h4>Cedro</h4>
-                <p style="font-size: 13px; color: var(--text-secondary); margin-top: 5px; line-height: 1.5;">Spot de Concientización + Pieza Radial</p>
+            <div class="uni-card" onclick="openModal('cedro')">
+                <i class="fa-solid fa-hand-holding-heart"></i>
+                <h4>Cedro: El Amigo Secreto</h4>
+                <p style="font-size: 13px; color: var(--text-secondary); margin-top: 5px;">Campaña ONG contra adicciones.</p>
+                <i class="fa-solid fa-circle-plus more-info" style="font-size: 20px;"></i>
             </div>
-            <div class="uni-card">
-                <i class="fa-solid fa-bread-slice"></i><h4>Pan Vital</h4>
-                <p style="font-size: 13px; color: var(--text-secondary); margin-top: 5px; line-height: 1.5;">Lanzamiento de producto + Radio</p>
+            <div class="uni-card" onclick="openModal('panvital')">
+                <i class="fa-solid fa-bread-slice"></i>
+                <h4>Pan Vital: Engríe con Energía</h4>
+                <p style="font-size: 13px; color: var(--text-secondary); margin-top: 5px;">Campaña de lanzamiento.</p>
+                <i class="fa-solid fa-circle-plus more-info" style="font-size: 20px;"></i>
             </div>
-            <div class="uni-card">
-                <i class="fa-solid fa-dumbbell"></i><h4>MyProtein</h4>
-                <p style="font-size: 13px; color: var(--text-secondary); margin-top: 5px; line-height: 1.5;">Comercial deportivo de alto impacto</p>
+            <div class="uni-card" onclick="openModal('myprotein')">
+                <i class="fa-solid fa-dumbbell"></i>
+                <h4>MyProtein: Desafía tus Límites</h4>
+                <p style="font-size: 13px; color: var(--text-secondary); margin-top: 5px;">Spot publicitario.</p>
+                <i class="fa-solid fa-circle-plus more-info" style="font-size: 20px;"></i>
             </div>
         </div>
     </div>
@@ -750,12 +712,183 @@
         </div>
     </footer>
 
-    <!-- SCRIPT PARA EL SLIDER -->
+    <!-- MODAL CONTAINER -->
+    <div id="projectModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <div id="modalBody" class="modal-body">
+                <!-- Content injected via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Hidden Data for Modal -->
+    <div style="display: none;">
+        <!-- Entel Content (Carousel) -->
+        <div id="content-entel">
+            <h3>Entel: Activa tu chispa</h3>
+            <p class="modal-description">Campaña corporativa interna orientada a fortalecer el pilar “Cambia el Mundo”. Bajo el concepto “Chispa de Transformación”, se pone en valor la innovación de cada colaborador y el uso de la tecnología como motor para resolver problemáticas del día a día.</p>
+            <div class="modal-carousel">
+                <div class="carousel-item active">
+                     <h5 style="text-align:center; color:var(--accent-blue); margin-bottom:10px;">Video Corporativo</h5>
+                     <div class="video-box landscape">
+                         <iframe src="https://drive.google.com/file/d/17zT7pVJXVe2wcals5gKlLr3S31auGRYU/preview" allow="autoplay"></iframe>
+                     </div>
+                </div>
+                <div class="carousel-item">
+                     <h5 style="text-align:center; color:var(--accent-blue); margin-bottom:10px;">Pieza de PR</h5>
+                     <div class="video-box landscape">
+                         <iframe src="https://drive.google.com/file/d/1i6zzwg6wHN4RbuhYoGNgEHG03VRocs60/preview" allow="autoplay"></iframe>
+                     </div>
+                </div>
+                <div class="carousel-item">
+                     <h5 style="text-align:center; color:var(--accent-blue); margin-bottom:10px;">Jingle Corporativo</h5>
+                     <div class="video-box landscape">
+                         <iframe src="https://drive.google.com/file/d/1yIZFbbBv0b6qeW9B_hVKCrkyvwOAtTLZ/preview" allow="autoplay"></iframe>
+                     </div>
+                </div>
+                <!-- Navigation -->
+                <a class="carousel-nav-btn prev" onclick="plusSlides(-1)">&#10094;</a>
+                <a class="carousel-nav-btn next" onclick="plusSlides(1)">&#10095;</a>
+            </div>
+            <div style="text-align:center; margin-top:10px; color: #9ca3af; font-size: 14px;">
+                <span id="slide-indicator">1 / 3</span>
+            </div>
+        </div>
+
+        <!-- Cedro Content (Carousel) -->
+        <div id="content-cedro">
+            <h3>Cedro: El Amigo Secreto</h3>
+            <p class="modal-description">Campaña para la ONG CEDRO enfocada en promocionar su servicio “Lugar de Escucha”, un espacio de acompañamiento para el tratamiento de adicciones. La campaña conceptualiza a la adicción como un “Amigo Secreto”: silencioso, constante y siempre presente.</p>
+            <div class="modal-carousel">
+                <div class="carousel-item active">
+                    <h5 style="text-align:center; color:var(--accent-blue); margin-bottom:10px;">Video de Campaña</h5>
+                    <div class="video-box landscape">
+                         <iframe src="https://drive.google.com/file/d/1ZSH0d8vK4QOPUi6lufOe6sZHHXxAMR6i/preview" allow="autoplay"></iframe>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <h5 style="text-align:center; color:var(--accent-blue); margin-bottom:10px;">Pieza Radial</h5>
+                    <div class="video-box landscape">
+                         <iframe src="https://drive.google.com/file/d/1crH4MDKhODueUfjNOMmuzb_mxDxKt27n/preview" allow="autoplay"></iframe>
+                    </div>
+                </div>
+                <!-- Navigation -->
+                <a class="carousel-nav-btn prev" onclick="plusSlides(-1)">&#10094;</a>
+                <a class="carousel-nav-btn next" onclick="plusSlides(1)">&#10095;</a>
+            </div>
+            <div style="text-align:center; margin-top:10px; color: #9ca3af; font-size: 14px;">
+                <span id="slide-indicator">1 / 2</span>
+            </div>
+        </div>
+        
+        <!-- Pan Vital Content (Carousel) -->
+        <div id="content-panvital">
+            <h3>Pan Vital: Engríe con Energía</h3>
+            <p class="modal-description">Campaña enfocada en posicionar la submarca Vital de Bimbo como una alternativa nutritiva y energética para el público mayor de 50 años. Bajo el concepto “Engríe con Energía”, se destaca la importancia de una alimentación saludable que les permita mantenerse activos y disfrutar momentos de calidad con sus hijos y nietos.</p>
+            <div class="modal-carousel">
+                <div class="carousel-item active">
+                    <h5 style="text-align:center; color:var(--accent-blue); margin-bottom:10px;">Video de Campaña</h5>
+                    <div class="video-box landscape">
+                         <iframe src="https://drive.google.com/file/d/15s53CUnbyhZ9NijzNmZjhNlR7iuTYz33/preview" allow="autoplay"></iframe>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <h5 style="text-align:center; color:var(--accent-blue); margin-bottom:10px;">Pieza de Radio</h5>
+                    <div class="video-box landscape">
+                         <iframe src="https://drive.google.com/file/d/1n0JVink6v4g192Tznxnr26NQhyX1YUjF/preview" allow="autoplay"></iframe>
+                    </div>
+                </div>
+                <!-- Navigation -->
+                <a class="carousel-nav-btn prev" onclick="plusSlides(-1)">&#10094;</a>
+                <a class="carousel-nav-btn next" onclick="plusSlides(1)">&#10095;</a>
+            </div>
+            <div style="text-align:center; margin-top:10px; color: #9ca3af; font-size: 14px;">
+                <span id="slide-indicator">1 / 2</span>
+            </div>
+        </div>
+
+        <!-- MyProtein Content (Single Video) -->
+        <div id="content-myprotein">
+            <h3>MyProtein: Desafía tus Límites</h3>
+            <p class="modal-description">Comercial publicitario para MyProtein que recurre al humor y la exageración como recursos creativos para potenciar el mensaje de marca.</p>
+            <div class="modal-carousel">
+                <div class="carousel-item active">
+                    <h5 style="text-align:center; color:var(--accent-blue); margin-bottom:10px;">Comercial</h5>
+                    <div class="video-box landscape">
+                         <iframe src="https://drive.google.com/file/d/18OrrcGLpBfkUUxXKnb7JOopsRmqnnjVo/preview" allow="autoplay"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
     <script>
+        // --- Slider Logic (Identidad) ---
         function moveSlider(val) {
             const rightClip = 100 - val;
-            document.getElementById('ba-layer-after').style.clipPath = `inset(0 ${rightClip}% 0 0)`;
-            document.getElementById('ba-handle').style.left = val + "%";
+            const afterLayer = document.getElementById('ba-layer-after');
+            const handle = document.getElementById('ba-handle');
+            if(afterLayer) afterLayer.style.clipPath = `inset(0 ${rightClip}% 0 0)`;
+            if(handle) handle.style.left = val + "%";
+        }
+
+        // --- Modal Logic ---
+        const modal = document.getElementById("projectModal");
+        const modalBody = document.getElementById("modalBody");
+        let slideIndex = 1;
+
+        function openModal(projectId) {
+            const content = document.getElementById("content-" + projectId).innerHTML;
+            modalBody.innerHTML = content;
+            modal.style.display = "block";
+            document.body.style.overflow = "hidden"; // Prevent background scrolling
+            
+            // Initialize carousel if exists in modal
+            if(modalBody.querySelector('.modal-carousel')) {
+                slideIndex = 1;
+                showSlides(slideIndex);
+            }
+        }
+
+        function closeModal() {
+            modal.style.display = "none";
+            modalBody.innerHTML = ""; // Clear content to stop videos
+            document.body.style.overflow = "auto"; 
+        }
+
+        // Close when clicking outside content
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+        // --- Carousel Logic inside Modal ---
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+
+        function showSlides(n) {
+            let i;
+            let slides = modalBody.getElementsByClassName("carousel-item");
+            if (!slides.length) return;
+            
+            let indicator = modalBody.querySelector("#slide-indicator");
+            
+            if (n > slides.length) {slideIndex = 1}    
+            if (n < 1) {slideIndex = slides.length}
+            
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+                slides[i].classList.remove("active");
+            }
+            
+            slides[slideIndex-1].style.display = "block";  
+            slides[slideIndex-1].classList.add("active");
+            
+            if(indicator) indicator.innerText = slideIndex + " / " + slides.length;
         }
     </script>
 </body>
