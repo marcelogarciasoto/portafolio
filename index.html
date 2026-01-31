@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Portafolio Digital | Marcelo Garcia Soto</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -28,7 +28,8 @@
             background-color: var(--bg-color);
             color: var(--text-primary);
             line-height: 1.6;
-            overflow-x: hidden;
+            overflow-x: hidden; /* Evita scroll horizontal en móvil */
+            width: 100%;
             font-weight: 300;
         }
 
@@ -46,12 +47,20 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
+            width: 100%;
         }
 
         .section-padding { padding: 80px 0; }
         
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
-        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .grid-2 { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 40px; 
+        }
+        /* Importante: min-width 0 evita que el grid se rompa con contenido ancho */
+        .grid-2 > div { min-width: 0; }
+
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
 
         /* --- HERO SECTION --- */
         .hero {
@@ -218,7 +227,7 @@
 
         .metric-label { font-size: 13px; color: var(--text-secondary); font-weight: 500; }
 
-        /* --- BEFORE/AFTER SLIDER (INTERACTIVO FIXED) --- */
+        /* --- BEFORE/AFTER SLIDER (INTERACTIVO) --- */
         .ba-slider {
             position: relative;
             width: 100%;
@@ -240,31 +249,14 @@
             user-select: none;
         }
 
-        .ba-layer-before { 
-            width: 100%; height: 100%; position: absolute; top: 0; left: 0; 
-            background: white; 
-            z-index: 1; 
-        }
-        
-        .ba-layer-after { 
-            width: 100%; height: 100%; position: absolute; top: 0; left: 0; 
-            background: white; 
-            clip-path: inset(0 50% 0 0); 
-            z-index: 2; 
-        }
+        .ba-layer-before { width: 100%; height: 100%; position: absolute; top: 0; left: 0; background: white; z-index: 1; }
+        .ba-layer-after { width: 100%; height: 100%; position: absolute; top: 0; left: 0; background: white; clip-path: inset(0 50% 0 0); z-index: 2; }
 
         .ba-label {
-            position: absolute;
-            top: 20px;
-            padding: 6px 16px;
-            border-radius: 50px;
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: white;
-            z-index: 10;
-            pointer-events: none;
+            position: absolute; top: 20px; padding: 6px 16px;
+            border-radius: 50px; font-size: 11px; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 1px; color: white;
+            z-index: 10; pointer-events: none;
         }
         .ba-label-before { right: 20px; background: rgba(0,0,0,0.7); }
         .ba-label-after { left: 20px; background: var(--accent-blue); }
@@ -284,7 +276,7 @@
             position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: ew-resize; z-index: 30; margin: 0;
         }
 
-        /* Video Container Styles (IFRAME & DRIVE FIX) */
+        /* --- VIDEO CONTAINER STYLES (DRIVE) --- */
         .video-box {
             background: #000;
             border-radius: 12px;
@@ -301,10 +293,11 @@
             border: none;
         }
 
-        .drive-video-fix iframe {
+        /* Corrección para video de CAD: Escala para llenar mejor el cuadro */
+        .cad-video-fix iframe {
             width: 100%;
             height: 100%;
-            transform: scale(1.05);
+            transform: scale(1.1); /* Zoom ligero para eliminar bordes */
             transform-origin: center;
         }
 
@@ -312,16 +305,21 @@
         .script-collage { position: relative; height: 280px; width: 100%; margin-top: 30px; display: flex; justify-content: center; align-items: center; perspective: 1000px; }
         .script-card { position: absolute; width: 160px; height: 220px; background: #ffffff; border-radius: 8px; box-shadow: 0 10px 20px rgba(0,0,0,0.3); transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1); cursor: pointer; overflow: hidden; border: 1px solid rgba(255,255,255,0.2); transform-origin: bottom center; }
         .script-card img { width: 100%; height: 100%; object-fit: cover; object-position: top; transition: 0.5s; }
+        
+        /* Rotación inicial */
         .script-card:nth-child(1) { transform: rotate(-6deg) translateX(-15px) scale(0.95); z-index: 1; opacity: 0.8; }
         .script-card:nth-child(2) { transform: rotate(0deg) translateY(0px) scale(1); z-index: 2; }
         .script-card:nth-child(3) { transform: rotate(6deg) translateX(15px) scale(0.95); z-index: 1; opacity: 0.8; }
+
+        /* Hover contenedor */
         .script-collage:hover .script-card:nth-child(1) { transform: rotate(-15deg) translateX(-100px) translateY(-10px) scale(1); z-index: 2; opacity: 1; }
         .script-collage:hover .script-card:nth-child(2) { transform: rotate(0deg) translateY(-20px) scale(1); z-index: 3; }
         .script-collage:hover .script-card:nth-child(3) { transform: rotate(15deg) translateX(100px) translateY(-10px) scale(1); z-index: 2; opacity: 1; }
+
+        /* Hover individual */
         .script-card:hover { z-index: 100 !important; transform: scale(2.2) translateY(-40px) rotate(0deg) !important; box-shadow: 0 40px 80px rgba(0,0,0,0.8); border-color: var(--accent-blue); }
 
         /* --- ESTILOS ESCIEM (CARRUSELES INFINITOS) --- */
-        
         .marquee-container {
             overflow: hidden;
             width: 100%;
@@ -367,28 +365,13 @@
             font-size: 13px;
         }
         .sector-badge i { color: var(--accent-blue); font-size: 16px; }
-        .sector-badge:hover {
-            background: rgba(59, 130, 246, 0.1);
-            border-color: var(--accent-blue);
-            color: white;
-        }
 
         @keyframes marquee-scroll {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); } 
         }
 
-        /* --- OTROS --- */
-        .social-icon-btn { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); color: #d1d5db; transition: 0.3s; }
-        .social-icon-btn:hover { background: var(--accent-blue); color: white; border-color: var(--accent-blue); transform: translateY(-2px); }
-
-        .uni-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 25px; }
-        .uni-card { background: rgba(255,255,255,0.02); padding: 30px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); transition: 0.3s; display: flex; flex-direction: column; align-items: flex-start; }
-        .uni-card:hover { background: rgba(255,255,255,0.04); transform: translateY(-5px); border-color: var(--accent-blue); }
-        .uni-card i { font-size: 28px; color: var(--accent-blue); margin-bottom: 20px; }
-        .uni-card h4 { font-size: 18px; margin-bottom: 8px; }
-
-        /* LOGO CAD ANIM */
+        /* --- LOGO CAD ANIM --- */
         .cad-logo-circle { width: 180px; height: 180px; border-radius: 50%; position: relative; margin: 30px auto 0; border: 2px solid white; box-shadow: 0 10px 30px rgba(0,0,0,0.3); overflow: hidden; background: white; animation: borderSwitch 6s infinite ease-in-out; }
         .cad-logo-circle img { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; }
         .logo-pos { z-index: 1; }
@@ -396,9 +379,20 @@
         @keyframes fadeSwitch { 0%, 45% { opacity: 0; } 50%, 95% { opacity: 1; } 100% { opacity: 0; } }
         @keyframes borderSwitch { 0%, 45% { border-color: #000; } 50%, 95% { border-color: #fff; } 100% { border-color: #000; } }
 
+        /* Social Icon Button Style */
+        .social-icon-btn { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); color: #d1d5db; transition: 0.3s; }
+        .social-icon-btn:hover { background: var(--accent-blue); color: white; border-color: var(--accent-blue); transform: translateY(-2px); }
+
+        /* --- UNIVERSITY GRID --- */
+        .uni-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 25px; }
+        .uni-card { background: rgba(255,255,255,0.02); padding: 30px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); transition: 0.3s; display: flex; flex-direction: column; align-items: flex-start; }
+        .uni-card:hover { background: rgba(255,255,255,0.04); transform: translateY(-5px); border-color: var(--accent-blue); }
+        .uni-card i { font-size: 28px; color: var(--accent-blue); margin-bottom: 20px; }
+        .uni-card h4 { font-size: 18px; margin-bottom: 8px; }
+
         footer { padding: 60px 0; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); color: var(--text-secondary); font-size: 14px; background: #080c14; }
 
-        /* Responsive Adjustments */
+        /* Responsive Adjustments (MOBILE FIXES) */
         @media (min-width: 768px) {
             .hero-container { flex-direction: row; text-align: left; justify-content: space-between; }
             .hero-content { text-align: left; }
@@ -407,8 +401,10 @@
         }
         @media (max-width: 768px) {
             .grid-2 { grid-template-columns: 1fr; }
-            .project-header { flex-direction: column; align-items: flex-start; }
+            .project-header { flex-direction: column; align-items: flex-start; padding: 25px; } /* Menos padding en cabecera */
+            .project-body { padding: 20px; } /* Menos padding en cuerpo */
             .hero-content { padding: 0 10px; }
+            .hero h1 { font-size: 32px; } /* Título más pequeño en móvil */
         }
     </style>
 </head>
@@ -500,13 +496,13 @@
                     Impacto total: Generación de un incremento del 30% en ventas globales.
                 </p>
 
-                <!-- NUEVA SECCIÓN: Videos con mayor alcance (IFRAMES DRIVE) -->
+                <!-- Videos Diseñando Detalles -->
                 <div style="margin-top: 50px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 30px;">
                     <h4 style="margin-bottom: 30px; color: white; font-size: 20px; text-align: center;">Contenido para las 3 etapas del funnel</h4>
                     <div class="grid-3">
                         <div>
-                            <div class="video-box drive-video-fix">
-                                <iframe src="https://drive.google.com/file/d/1WU8TYiidohWqrIU2Xw6LuHgRriILGL0V/preview" allow="autoplay"></iframe>
+                            <div class="video-box">
+                                <iframe src="https://drive.google.com/file/d/1vG3bgR4g8YNaFKkKIe2sof2FnlS3QOpS/preview" allow="autoplay"></iframe>
                             </div>
                             <div style="margin-top: 15px; text-align: center;">
                                 <h5 style="color: var(--accent-blue); margin-bottom: 5px;">Awareness</h5>
@@ -515,8 +511,8 @@
                             </div>
                         </div>
                         <div>
-                            <div class="video-box drive-video-fix">
-                                <iframe src="https://drive.google.com/file/d/1vG3bgR4g8YNaFKkKIe2sof2FnlS3QOpS/preview" allow="autoplay"></iframe>
+                            <div class="video-box">
+                                <iframe src="https://drive.google.com/file/d/1FHPPFz-Hrt0_zJID-Xs6sgYrnrRna1SV/preview" allow="autoplay"></iframe>
                             </div>
                             <div style="margin-top: 15px; text-align: center;">
                                 <h5 style="color: var(--accent-blue); margin-bottom: 5px;">Consideración</h5>
@@ -525,8 +521,8 @@
                             </div>
                         </div>
                         <div>
-                            <div class="video-box drive-video-fix">
-                                <iframe src="https://drive.google.com/file/d/1FHPPFz-Hrt0_zJID-Xs6sgYrnrRna1SV/preview" allow="autoplay"></iframe>
+                            <div class="video-box">
+                                <iframe src="https://drive.google.com/file/d/1WU8TYiidohWqrIU2Xw6LuHgRriILGL0V/preview" allow="autoplay"></iframe>
                             </div>
                             <div style="margin-top: 15px; text-align: center;">
                                 <h5 style="color: var(--accent-blue); margin-bottom: 5px;">Conversión</h5>
@@ -608,9 +604,9 @@
                     <!-- Columna Visual Derecha -->
                     <div>
                         <h4 style="margin-bottom: 20px; color: white; font-size: 18px;">Video de mayor rendimiento</h4>
-                        <!-- 1. Video Viral (IFRAME DRIVE) -->
+                        <!-- 1. Video Viral (CAD - DRIVE) -->
                         <div class="video-box" style="width: 100%; aspect-ratio: 9/16; margin: 0 auto 15px auto; max-width: 280px;">
-                             <div class="drive-video-fix">
+                             <div class="cad-video-fix">
                                  <iframe src="https://drive.google.com/file/d/1luDzespT5FqTGLZQyadpZ_NXDMJzplmL/preview" allow="autoplay"></iframe>
                              </div>
                         </div>
@@ -659,6 +655,7 @@
                         </div>
                     </div>
                     <div>
+                         <h4 style="margin-bottom: 15px; color: white; font-size: 16px;">Planificación estructurada de contenido</h4>
                          <!-- Carrusel de Grillas -->
                          <div class="marquee-container">
                             <div class="marquee-content">
