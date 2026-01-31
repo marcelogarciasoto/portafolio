@@ -287,11 +287,11 @@
         .video-box iframe { width: 100%; height: 100%; border: none; }
         .drive-video-fix iframe { width: 100%; height: 100%; transform: scale(1.05); transform-origin: center; }
         
-        /* CORRECCIÓN VIDEO CAD (Más grande y ajustado) */
+        /* CORRECCIÓN VIDEO CAD: Aumentado scale para llenar mejor */
         .cad-video-fix iframe {
             width: 100%;
             height: 100%;
-            transform: scale(1.20); /* Zoom para quitar bordes */
+            transform: scale(1.35); /* Zoom aumentado para eliminar cualquier borde */
             transform-origin: center;
         }
 
@@ -313,22 +313,11 @@
         .script-collage:hover .script-card:nth-child(3) { transform: rotate(15deg) translateX(100px) translateY(-10px) scale(1); z-index: 2; opacity: 1; }
         .script-card:hover { z-index: 100 !important; transform: scale(2.2) translateY(-40px) rotate(0deg) !important; box-shadow: 0 40px 80px rgba(0,0,0,0.8); border-color: var(--accent-blue); }
 
-        /* --- ESTILOS ESCIEM (MODIFICADO: MÁS GRANDE Y NÍTIDO) --- */
+        /* --- ESTILOS ESCIEM --- */
         .marquee-container { overflow: hidden; width: 100%; position: relative; mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent); }
         .marquee-content { display: flex; gap: 20px; width: max-content; animation: marquee-scroll 25s linear infinite; }
-        
-        /* Grillas Agrandadas para Nitidez */
-        .grid-item { 
-            width: 260px; /* Aumentado de 180px */
-            height: 400px; /* Aumentado de 240px */
-            flex-shrink: 0; 
-            background: #1e293b; 
-            border-radius: 12px; 
-            overflow: hidden; 
-            border: 1px solid rgba(255,255,255,0.1); 
-        }
+        .grid-item { width: 260px; height: 400px; flex-shrink: 0; background: #1e293b; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); }
         .grid-item img { width: 100%; height: 100%; object-fit: cover; }
-
         .sectors-marquee-content { display: flex; gap: 15px; width: max-content; animation: marquee-scroll 35s linear infinite; }
         .sector-badge { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 50px; padding: 10px 20px; white-space: nowrap; display: flex; align-items: center; gap: 10px; color: #cbd5e1; font-size: 13px; }
         .sector-badge i { color: var(--accent-blue); font-size: 16px; }
@@ -406,6 +395,18 @@
             .hero-content { padding: 0 10px; }
             .hero h1 { font-size: 32px; }
             .modal-content { width: 95%; margin: 10% auto; padding: 20px; }
+            /* CAD Video Vertical Fix for Mobile */
+            .cad-col-right {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                height: 100%;
+            }
+            .video-box-cad-full {
+                width: 100%;
+                height: 500px; /* Altura fija en móvil para asegurar formato vertical */
+                aspect-ratio: 9/16;
+            }
         }
     </style>
 </head>
@@ -497,7 +498,7 @@
                     <div class="grid-3">
                         <div>
                             <div class="video-box drive-video-fix">
-                                <iframe src="https://drive.google.com/file/d/1vG3bgR4g8YNaFKkKIe2sof2FnlS3QOpS/preview" allow="autoplay"></iframe>
+                                <iframe src="https://drive.google.com/file/d/1WU8TYiidohWqrIU2Xw6LuHgRriILGL0V/preview" allow="autoplay; fullscreen; picture-in-picture"></iframe>
                             </div>
                             <div style="margin-top: 15px; text-align: center;">
                                 <h5 style="color: var(--accent-blue); margin-bottom: 5px;">Awareness</h5>
@@ -507,7 +508,7 @@
                         </div>
                         <div>
                             <div class="video-box drive-video-fix">
-                                <iframe src="https://drive.google.com/file/d/1FHPPFz-Hrt0_zJID-Xs6sgYrnrRna1SV/preview" allow="autoplay"></iframe>
+                                <iframe src="https://drive.google.com/file/d/1vG3bgR4g8YNaFKkKIe2sof2FnlS3QOpS/preview" allow="autoplay; fullscreen; picture-in-picture"></iframe>
                             </div>
                             <div style="margin-top: 15px; text-align: center;">
                                 <h5 style="color: var(--accent-blue); margin-bottom: 5px;">Consideración</h5>
@@ -517,7 +518,7 @@
                         </div>
                         <div>
                             <div class="video-box drive-video-fix">
-                                <iframe src="https://drive.google.com/file/d/1WU8TYiidohWqrIU2Xw6LuHgRriILGL0V/preview" allow="autoplay"></iframe>
+                                <iframe src="https://drive.google.com/file/d/1FHPPFz-Hrt0_zJID-Xs6sgYrnrRna1SV/preview" allow="autoplay; fullscreen; picture-in-picture"></iframe>
                             </div>
                             <div style="margin-top: 15px; text-align: center;">
                                 <h5 style="color: var(--accent-blue); margin-bottom: 5px;">Conversión</h5>
@@ -550,33 +551,24 @@
             </div>
             <div class="project-body">
                 <div class="grid-2">
+                    <!-- Columna Izquierda: Estrategia y Logo -->
                     <div>
                         <h4 style="margin-bottom: 25px; color: white; font-size: 18px;">Resultados en 2 Meses</h4>
                         <div class="metrics-grid">
                             <div class="metric-box"><span class="metric-number">+11.5K</span><span class="metric-label">Seguidores TikTok</span></div>
                             <div class="metric-box"><span class="metric-number">+600</span><span class="metric-label">Seguidores FB</span></div>
                         </div>
-                        <div style="margin-top: 35px;">
-                            <h5 style="color: var(--accent-blue); margin-bottom: 20px; font-size: 16px;">Estrategia Implementada</h5>
-                            <ul style="color: #d1d5db; font-size: 15px; list-style: none; padding: 0;">
-                                <li style="margin-bottom: 15px; display: flex; align-items: start;">
-                                    <div style="min-width: 30px;"><i class="fa-solid fa-palette" style="color: var(--success);"></i></div>
-                                    <span><strong>Identidad Visual:</strong> Creación integral de logo y paleta de colores corporativos.</span>
-                                </li>
-                                <li style="margin-bottom: 15px; display: flex; align-items: start;">
-                                    <div style="min-width: 30px;"><i class="fa-solid fa-rocket" style="color: var(--success);"></i></div>
-                                    <span><strong>Growth Orgánico:</strong> Diseño, implementación y medición de estrategia de crecimiento.</span>
-                                </li>
-                                <li style="margin-bottom: 15px; display: flex; align-items: start;">
-                                    <div style="min-width: 30px;"><i class="fa-solid fa-file-pen" style="color: var(--success);"></i></div>
-                                    <span><strong>Contenido de Valor:</strong> Desarrollo de guiones enfocados en engagement y alcance.</span>
-                                </li>
-                                <li style="margin-bottom: 15px; display: flex; align-items: start;">
-                                    <div style="min-width: 30px;"><i class="fa-solid fa-video" style="color: var(--success);"></i></div>
-                                    <span><strong>Calidad Audiovisual:</strong> Asesoría en grabación, edición y optimización de formatos.</span>
-                                </li>
-                            </ul>
+                        
+                        <!-- Logo Animado MOVIDO AQUÍ -->
+                        <div style="margin-top: 40px; text-align: center;">
+                            <div class="cad-logo-circle">
+                                <img src="cad-logo-pos.jpg" class="logo-pos" alt="Logo Positivo">
+                                <img src="cad-logo-neg.jpg" class="logo-neg" alt="Logo Negativo">
+                            </div>
+                            <p style="text-align: center; font-size: 12px; color: var(--text-secondary); margin-top: 10px;">Identidad gráfica (positivo / negativo)</p>
                         </div>
+
+                        <!-- COLLAGE INTERACTIVO DE GUIONES -->
                         <div style="margin-top: 40px; text-align: center;">
                             <p style="font-size: 14px; color: var(--text-secondary); margin-bottom: 10px; letter-spacing: 1px; text-transform: uppercase;">
                                 <i class="fa-solid fa-hand-pointer" style="margin-right: 5px;"></i> Guiones estratégicos y estructurados
@@ -589,14 +581,20 @@
                         </div>
                     </div>
                     
-                    <div>
+                    <!-- Columna Derecha: Video Full Height -->
+                    <div class="cad-col-right" style="display: flex; flex-direction: column; justify-content: flex-start; height: 100%;">
                         <h4 style="margin-bottom: 20px; color: white; font-size: 18px;">Video de mayor rendimiento</h4>
-                        <div class="video-box" style="width: 100%; aspect-ratio: 9/16; margin: 0 auto 15px auto; max-width: 340px;">
+                        
+                        <!-- Video Viral (Full Height & Width) -->
+                        <!-- Usamos flex-grow para que ocupe todo el espacio vertical disponible -->
+                        <div class="video-box video-box-cad-full" style="width: 100%; flex-grow: 1; min-height: 500px; aspect-ratio: 9/16;">
                              <div class="cad-video-fix">
-                                 <iframe src="https://drive.google.com/file/d/1luDzespT5FqTGLZQyadpZ_NXDMJzplmL/preview" allow="autoplay"></iframe>
+                                 <iframe src="https://drive.google.com/file/d/1luDzespT5FqTGLZQyadpZ_NXDMJzplmL/preview" allow="autoplay; fullscreen; picture-in-picture"></iframe>
                              </div>
                         </div>
-                        <div style="margin-top: 0; text-align: center; background: rgba(255,255,255,0.03); padding: 15px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); max-width: 340px; margin-left: auto; margin-right: auto;">
+
+                        <!-- Métricas del Video Viral (Debajo del video) -->
+                        <div style="margin-top: 15px; text-align: center; background: rgba(255,255,255,0.03); padding: 15px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); width: 100%;">
                             <p style="color: white; font-weight: 600; font-size: 14px; margin-bottom: 12px; letter-spacing: 0.5px;">Estadísticas Clave</p>
                             <div style="display: flex; justify-content: space-between; font-size: 13px; color: #cbd5e1;">
                                 <div style="display: flex; flex-direction: column; align-items: center; gap: 5px;"><i class="fa-solid fa-eye" style="color: var(--accent-blue); font-size: 16px;"></i><span>3.2 mill</span></div>
@@ -604,11 +602,6 @@
                                 <div style="display: flex; flex-direction: column; align-items: center; gap: 5px;"><i class="fa-solid fa-user-plus" style="color: var(--success); font-size: 16px;"></i><span>+6000</span></div>
                             </div>
                         </div>
-                        <div class="cad-logo-circle">
-                            <img src="cad-logo-pos.jpg" class="logo-pos" alt="Logo Positivo">
-                            <img src="cad-logo-neg.jpg" class="logo-neg" alt="Logo Negativo">
-                        </div>
-                        <p style="text-align: center; font-size: 12px; color: var(--text-secondary); margin-top: 10px;">Identidad gráfica (positivo / negativo)</p>
                     </div>
                 </div>
             </div>
@@ -633,7 +626,6 @@
                         </div>
                     </div>
                     <div>
-                         <!-- Se eliminó el título "Planificación estructurada..." -->
                          <div class="marquee-container">
                             <div class="marquee-content">
                                 <div class="grid-item"><img src="grilla-1.png" alt="Grilla 1"></div>
@@ -651,7 +643,7 @@
                     </div>
                 </div>
 
-                <!-- SECCIÓN MOVIDA: Ahora ocupa todo el ancho abajo -->
+                <!-- SECCIÓN GESTIÓN DE CUENTAS (FULL WIDTH) -->
                 <div style="margin-top: 40px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 30px;">
                     <div style="margin-bottom: 20px;">
                         <h4 style="margin: 0; font-size: 18px;">Gestión de <span style="color: var(--success);">+20 cuentas</span> en <span style="color: var(--success);">+10 industrias</span></h4>
@@ -753,19 +745,19 @@
                 <div class="carousel-item active">
                      <h5 style="text-align:center; color:var(--accent-blue); margin-bottom:10px;">Video Corporativo</h5>
                      <div class="video-box landscape">
-                         <iframe src="https://drive.google.com/file/d/17zT7pVJXVe2wcals5gKlLr3S31auGRYU/preview" allow="autoplay"></iframe>
+                         <iframe src="https://drive.google.com/file/d/17zT7pVJXVe2wcals5gKlLr3S31auGRYU/preview" allow="autoplay; fullscreen; picture-in-picture"></iframe>
                      </div>
                 </div>
                 <div class="carousel-item">
                      <h5 style="text-align:center; color:var(--accent-blue); margin-bottom:10px;">Pieza de PR</h5>
                      <div class="video-box landscape">
-                         <iframe src="https://drive.google.com/file/d/1i6zzwg6wHN4RbuhYoGNgEHG03VRocs60/preview" allow="autoplay"></iframe>
+                         <iframe src="https://drive.google.com/file/d/1i6zzwg6wHN4RbuhYoGNgEHG03VRocs60/preview" allow="autoplay; fullscreen; picture-in-picture"></iframe>
                      </div>
                 </div>
                 <div class="carousel-item">
                      <h5 style="text-align:center; color:var(--accent-blue); margin-bottom:10px;">Jingle Corporativo</h5>
                      <div class="video-box landscape">
-                         <iframe src="https://drive.google.com/file/d/1yIZFbbBv0b6qeW9B_hVKCrkyvwOAtTLZ/preview" allow="autoplay"></iframe>
+                         <iframe src="https://drive.google.com/file/d/1yIZFbbBv0b6qeW9B_hVKCrkyvwOAtTLZ/preview" allow="autoplay; fullscreen; picture-in-picture"></iframe>
                      </div>
                 </div>
                 <!-- Navigation -->
@@ -785,13 +777,13 @@
                 <div class="carousel-item active">
                     <h5 style="text-align:center; color:var(--accent-blue); margin-bottom:10px;">Video de Campaña</h5>
                     <div class="video-box landscape">
-                         <iframe src="https://drive.google.com/file/d/1ZSH0d8vK4QOPUi6lufOe6sZHHXxAMR6i/preview" allow="autoplay"></iframe>
+                         <iframe src="https://drive.google.com/file/d/1ZSH0d8vK4QOPUi6lufOe6sZHHXxAMR6i/preview" allow="autoplay; fullscreen; picture-in-picture"></iframe>
                     </div>
                 </div>
                 <div class="carousel-item">
                     <h5 style="text-align:center; color:var(--accent-blue); margin-bottom:10px;">Pieza Radial</h5>
                     <div class="video-box landscape">
-                         <iframe src="https://drive.google.com/file/d/1crH4MDKhODueUfjNOMmuzb_mxDxKt27n/preview" allow="autoplay"></iframe>
+                         <iframe src="https://drive.google.com/file/d/1crH4MDKhODueUfjNOMmuzb_mxDxKt27n/preview" allow="autoplay; fullscreen; picture-in-picture"></iframe>
                     </div>
                 </div>
                 <!-- Navigation -->
@@ -811,13 +803,13 @@
                 <div class="carousel-item active">
                     <h5 style="text-align:center; color:var(--accent-blue); margin-bottom:10px;">Video de Campaña</h5>
                     <div class="video-box landscape">
-                         <iframe src="https://drive.google.com/file/d/15s53CUnbyhZ9NijzNmZjhNlR7iuTYz33/preview" allow="autoplay"></iframe>
+                         <iframe src="https://drive.google.com/file/d/15s53CUnbyhZ9NijzNmZjhNlR7iuTYz33/preview" allow="autoplay; fullscreen; picture-in-picture"></iframe>
                     </div>
                 </div>
                 <div class="carousel-item">
                     <h5 style="text-align:center; color:var(--accent-blue); margin-bottom:10px;">Pieza de Radio</h5>
                     <div class="video-box landscape">
-                         <iframe src="https://drive.google.com/file/d/1n0JVink6v4g192Tznxnr26NQhyX1YUjF/preview" allow="autoplay"></iframe>
+                         <iframe src="https://drive.google.com/file/d/1n0JVink6v4g192Tznxnr26NQhyX1YUjF/preview" allow="autoplay; fullscreen; picture-in-picture"></iframe>
                     </div>
                 </div>
                 <!-- Navigation -->
@@ -837,7 +829,7 @@
                 <div class="carousel-item active">
                     <h5 style="text-align:center; color:var(--accent-blue); margin-bottom:10px;">Comercial</h5>
                     <div class="video-box landscape">
-                         <iframe src="https://drive.google.com/file/d/18OrrcGLpBfkUUxXKnb7JOopsRmqnnjVo/preview" allow="autoplay"></iframe>
+                         <iframe src="https://drive.google.com/file/d/18OrrcGLpBfkUUxXKnb7JOopsRmqnnjVo/preview" allow="autoplay; fullscreen; picture-in-picture"></iframe>
                     </div>
                 </div>
             </div>
