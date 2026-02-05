@@ -52,12 +52,11 @@
 
         .section-padding { padding: 80px 0; }
         
-        /* Grid simétrico que estira las columnas a la misma altura */
         .grid-2 { 
             display: grid; 
             grid-template-columns: 1fr 1fr; 
             gap: 40px; 
-            align-items: stretch; 
+            align-items: center; /* Alineación centrada para mejor balance si las alturas varían levemente */
         }
         .grid-2 > div { min-width: 0; }
 
@@ -89,7 +88,6 @@
             flex: 1;
         }
 
-        /* Estilos de la Foto */
         .hero-image-box {
             position: relative;
             width: 280px;
@@ -277,24 +275,12 @@
             position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: ew-resize; z-index: 30; margin: 0;
         }
 
-        /* --- NUEVO: Indicación de Deslizar --- */
         .ba-hint {
             position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0,0,0,0.7);
-            color: white;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            pointer-events: none;
-            z-index: 25;
-            display: flex;
-            align-items: center;
-            gap: 5px;
+            bottom: 20px; left: 50%; transform: translateX(-50%);
+            background: rgba(0,0,0,0.7); color: white; padding: 5px 12px;
+            border-radius: 20px; font-size: 11px; font-weight: 600; letter-spacing: 0.5px;
+            pointer-events: none; z-index: 25; display: flex; align-items: center; gap: 5px;
         }
 
         /* --- VIDEO / IFRAME STYLES --- */
@@ -310,17 +296,19 @@
         .video-box iframe { width: 100%; height: 100%; border: none; }
         .drive-video-fix iframe { width: 100%; height: 100%; transform: scale(1.0); transform-origin: center; }
         
-        /* CORRECCIÓN VIDEO CAD: Estirar y Zoom Agresivo */
+        /* CORRECCIÓN VIDEO CAD: Formato TikTok estricto y sin zoom excesivo */
         .cad-col-right {
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            justify-content: flex-start; /* Alineación superior */
+            align-items: center; /* Centrado horizontal */
             height: 100%;
         }
         
         .video-box-cad-elastic {
-            flex-grow: 1; /* Ocupa todo el espacio vertical disponible */
             width: 100%;
+            max-width: 320px; /* Limitamos el ancho para que no se vea gigante */
+            aspect-ratio: 9 / 16; /* Forzamos proporción TikTok exacta */
             position: relative;
             overflow: hidden;
             background: #000;
@@ -339,7 +327,8 @@
         .cad-video-fix iframe {
             width: 100%;
             height: 100%;
-            transform: scale(1.55); 
+            /* Zoom ligero para quitar bordes pero sin cortar contenido */
+            transform: scale(1.02); 
             transform-origin: center;
             object-fit: cover;
         }
@@ -392,12 +381,8 @@
         .uni-card:hover { background: rgba(255,255,255,0.04); transform: translateY(-5px); border-color: var(--accent-blue); }
         .uni-card i { font-size: 28px; color: var(--accent-blue); margin-bottom: 20px; }
         .uni-card h4 { font-size: 18px; margin-bottom: 8px; }
-        
-        /* Modificado: Icono siempre visible */
         .uni-card .more-info {
-            position: absolute; bottom: 20px; right: 20px; 
-            opacity: 0.8; /* Siempre visible */
-            transition: 0.3s; color: var(--accent-blue);
+            position: absolute; bottom: 20px; right: 20px; opacity: 0; transition: 0.3s; color: var(--accent-blue);
         }
         .uni-card:hover .more-info { opacity: 1; transform: scale(1.1); }
 
@@ -461,6 +446,7 @@
                 /* En móvil no queremos que sea 'flex' sino una altura fija considerable */
                 flex-grow: 0; 
                 aspect-ratio: 9/16;
+                max-width: 100%; /* Permitir ancho completo en móvil */
             }
         }
     </style>
@@ -650,7 +636,7 @@
                         </div>
 
                         <!-- Métricas del Video Viral -->
-                        <div style="text-align: center; background: rgba(255,255,255,0.03); padding: 15px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); width: 100%;">
+                        <div style="text-align: center; background: rgba(255,255,255,0.03); padding: 15px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); width: 100%; max-width: 320px; margin: 0 auto;">
                             <p style="color: white; font-weight: 600; font-size: 14px; margin-bottom: 12px; letter-spacing: 0.5px;">Estadísticas Clave</p>
                             <div style="display: flex; justify-content: space-between; font-size: 13px; color: #cbd5e1;">
                                 <div style="display: flex; flex-direction: column; align-items: center; gap: 5px;"><i class="fa-solid fa-eye" style="color: var(--accent-blue); font-size: 16px;"></i><span>3.2 mill</span></div>
